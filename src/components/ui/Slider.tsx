@@ -67,7 +67,7 @@ export const Slider: FC<SliderProps> = ({
         <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
           {/* Active Highlight Fill */}
           <div
-            className="h-full bg-[#5B4DF5] rounded-full transition-all duration-75"
+            className="h-full bg-[#5B4DF5] rounded-full transition-[width] duration-300 ease-expo"
             style={{ width: `${percentage}%` }}
           />
         </div>
@@ -83,9 +83,9 @@ export const Slider: FC<SliderProps> = ({
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
         />
 
-        {/* Custom Styled Thumb */}
+        {/* Custom Styled Thumb with ease-expo */}
         <div
-          className="absolute w-5 h-5 bg-white border-2 border-[#5B4DF5] rounded-full shadow-md pointer-events-none transition-transform duration-75 hover:scale-110"
+          className="absolute w-5 h-5 bg-white border-2 border-[#5B4DF5] rounded-full shadow-md pointer-events-none transition-[left,transform] duration-300 ease-expo group-hover:scale-110 active:scale-95"
           style={{
             left: `calc(${percentage}% - 10px)`,
           }}

@@ -21,3 +21,24 @@
 input[type='range'] {
   accent-color: #5B4DF5;
 }
+
+/* Expo Easing utilities */
+.ease-expo {
+  transition-timing-function: cubic-bezier(0.87, 0, 0.13, 1) !important;
+}
+
+@keyframes dropdownExpo {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-dropdown-expo {
+  animation: dropdownExpo 350ms cubic-bezier(0.87, 0, 0.13, 1) forwards;
+}
+

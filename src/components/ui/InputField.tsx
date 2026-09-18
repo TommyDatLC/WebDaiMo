@@ -37,7 +37,7 @@ export const InputField: FC<InputFieldProps> = ({
           onChange={handleChange}
           disabled={disabled}
           placeholder={placeholder}
-          className="w-full h-10 px-3.5 text-xs font-semibold text-gray-800 bg-white border border-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5B4DF5]/40 transition-all placeholder:text-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed"
+          className="w-full h-10 px-3.5 text-xs font-semibold text-gray-800 bg-white border border-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5B4DF5]/40 transition-all duration-400 ease-expo placeholder:text-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed"
         />
       </div>
     </div>
@@ -83,7 +83,7 @@ export const RouteInputGroup: FC<RouteInputGroupProps> = ({
               value={fromValue}
               onChange={(e) => onFromChange(e.target.value)}
               placeholder="Your location"
-              className="w-full h-10 px-3.5 text-xs font-semibold text-gray-800 bg-white border border-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5B4DF5]/40 transition-all placeholder:text-gray-400"
+              className="w-full h-10 px-3.5 text-xs font-semibold text-gray-800 bg-white border border-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5B4DF5]/40 transition-all duration-400 ease-expo placeholder:text-gray-400"
             />
           </div>
           <div className="w-7 shrink-0" />
@@ -91,7 +91,7 @@ export const RouteInputGroup: FC<RouteInputGroupProps> = ({
 
         {/* Dynamic Stops */}
         {stops.map((stop, idx) => (
-          <div key={idx} className="flex items-center space-x-2.5 mb-2.5 animate-in fade-in duration-150">
+          <div key={idx} className="flex items-center space-x-2.5 mb-2.5 animate-in fade-in duration-300 ease-expo">
             <span className="w-11 text-[12.5px] font-bold text-gray-900 shrink-0 select-none">
               Stop {idx + 1}:
             </span>
@@ -101,14 +101,14 @@ export const RouteInputGroup: FC<RouteInputGroupProps> = ({
                 value={stop}
                 onChange={(e) => onStopChange?.(idx, e.target.value)}
                 placeholder="Add waypoint"
-                className="w-full h-10 px-3.5 text-xs font-semibold text-gray-800 bg-white border border-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5B4DF5]/40 transition-all"
+                className="w-full h-10 px-3.5 text-xs font-semibold text-gray-800 bg-white border border-gray-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5B4DF5]/40 transition-all duration-400 ease-expo"
               />
             </div>
             {onRemoveStop && (
               <button
                 type="button"
                 onClick={() => onRemoveStop(idx)}
-                className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-red-500 transition-colors"
+                className="w-7 h-7 flex items-center justify-center text-gray-400 hover:text-red-500 hover:scale-110 transition-all duration-300 ease-expo"
                 title="Remove stop"
               >
                 <Trash2 className="w-4 h-4" />
@@ -128,7 +128,7 @@ export const RouteInputGroup: FC<RouteInputGroupProps> = ({
               value={toValue}
               onChange={(e) => onToChange(e.target.value)}
               placeholder="Bialystok"
-              className="w-full h-10 px-3.5 text-xs font-semibold text-gray-800 bg-white border border-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5B4DF5]/40 transition-all placeholder:text-gray-400"
+              className="w-full h-10 px-3.5 text-xs font-semibold text-gray-800 bg-white border border-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#5B4DF5]/40 transition-all duration-400 ease-expo placeholder:text-gray-400"
             />
           </div>
           <div className="w-7 shrink-0" />
@@ -140,9 +140,9 @@ export const RouteInputGroup: FC<RouteInputGroupProps> = ({
           onClick={onSwap}
           aria-label="Swap locations"
           title="Swap origin and destination"
-          className="absolute right-0 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-gray-800 hover:text-[#5B4DF5] hover:bg-gray-100 rounded-lg transition-all focus:outline-none active:scale-90"
+          className="group absolute right-0 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-gray-800 hover:text-[#5B4DF5] hover:bg-gray-100 rounded-lg transition-all duration-400 ease-expo focus:outline-none active:scale-90"
         >
-          <ArrowUpDown className="w-4 h-4 stroke-[2.5]" />
+          <ArrowUpDown className="w-4 h-4 stroke-[2.5] transition-transform duration-500 ease-expo group-hover:rotate-180" />
         </button>
       </div>
 
@@ -152,9 +152,9 @@ export const RouteInputGroup: FC<RouteInputGroupProps> = ({
           <button
             type="button"
             onClick={onAddStop}
-            className="inline-flex items-center text-[12px] font-bold text-gray-900 hover:text-[#5B4DF5] transition-colors focus:outline-none group"
+            className="inline-flex items-center text-[12px] font-bold text-gray-900 hover:text-[#5B4DF5] transition-colors duration-300 ease-expo focus:outline-none group"
           >
-            <PlusCircle className="w-4 h-4 mr-1.5 stroke-[2] group-hover:scale-105 transition-transform" />
+            <PlusCircle className="w-4 h-4 mr-1.5 stroke-[2] group-hover:scale-110 group-hover:rotate-90 transition-transform duration-400 ease-expo" />
             Add stop
           </button>
         </div>

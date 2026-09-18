@@ -75,7 +75,7 @@ export const DirectionsCard: FC<DirectionsCardProps> = ({
   return (
     <aside
       aria-label="Directions navigation panel"
-      className={`relative z-20 transition-all duration-300 ease-in-out ${
+      className={`relative z-20 transition-all duration-500 ease-expo ${
         isCollapsed ? 'translate-x-[-92%]' : 'translate-x-0'
       } ${className}`}
     >
@@ -126,14 +126,14 @@ export const DirectionsCard: FC<DirectionsCardProps> = ({
         onClick={() => setIsCollapsed(!isCollapsed)}
         aria-label={isCollapsed ? 'Expand directions panel' : 'Collapse directions panel'}
         title={isCollapsed ? 'Expand panel' : 'Collapse panel'}
-        className="absolute -right-5 top-8 w-10 h-10 bg-white rounded-full shadow-lg border border-black/10 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:shadow-xl transition-all focus:outline-none group z-30"
+        className="absolute -right-5 top-8 w-10 h-10 bg-white rounded-full shadow-lg border border-black/10 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:shadow-xl transition-all duration-400 ease-expo active:scale-90 hover:scale-105 focus:outline-none group z-30"
       >
         {isCollapsed ? (
           <div className="flex items-center">
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+            <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300 ease-expo" />
           </div>
         ) : (
-          <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
+          <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-300 ease-expo" />
         )}
       </button>
 
@@ -141,7 +141,7 @@ export const DirectionsCard: FC<DirectionsCardProps> = ({
       {isCollapsed && (
         <div
           onClick={() => setIsCollapsed(false)}
-          className="absolute left-full ml-8 top-8 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl border border-black/5 flex items-center gap-3 cursor-pointer hover:bg-white transition-all text-xs font-bold text-gray-800"
+          className="absolute left-full ml-8 top-8 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl border border-black/5 flex items-center gap-3 cursor-pointer hover:bg-white transition-all duration-400 ease-expo text-xs font-bold text-gray-800 animate-in fade-in slide-in-from-left-2"
         >
           <Navigation className="w-4 h-4 text-[#5B4DF5] fill-[#5B4DF5]" />
           <span>2h 32m to {toLocation}</span>

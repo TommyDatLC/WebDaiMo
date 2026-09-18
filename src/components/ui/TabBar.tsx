@@ -35,9 +35,9 @@ export const TabBar: FC<TabBarProps> = ({
           >
             {/* Square/Rounded Icon Badge */}
             <div
-              className={`w-12 h-11 flex items-center justify-center rounded-xl transition-all duration-200 ${
+              className={`w-12 h-11 flex items-center justify-center rounded-xl transition-all duration-400 ease-expo group-hover:scale-105 active:scale-95 ${
                 isActive
-                  ? 'bg-[#5B4DF5] text-white shadow-md shadow-indigo-200/60'
+                  ? 'bg-[#5B4DF5] text-white shadow-md shadow-indigo-200/70 scale-100'
                   : 'text-[#5B4DF5] hover:bg-purple-50'
               }`}
             >
@@ -47,7 +47,7 @@ export const TabBar: FC<TabBarProps> = ({
             {/* Sub-label / Duration */}
             {item.subLabel ? (
               <span
-                className={`mt-1.5 text-[11px] tracking-tight transition-colors ${
+                className={`mt-1.5 text-[11px] tracking-tight transition-colors duration-400 ease-expo ${
                   isActive
                     ? 'text-[#5B4DF5] font-bold'
                     : 'text-gray-900 font-semibold'

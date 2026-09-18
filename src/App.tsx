@@ -87,7 +87,7 @@ export function App() {
           <button
             type="button"
             onClick={() => setViewMode('assembled')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-400 ease-expo active:scale-95 ${
               viewMode === 'assembled'
                 ? 'bg-white text-[#5B4DF5] shadow-xs'
                 : 'text-gray-600 hover:text-gray-900'
@@ -101,7 +101,7 @@ export function App() {
           <button
             type="button"
             onClick={() => setViewMode('elements')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-400 ease-expo active:scale-95 ${
               viewMode === 'elements'
                 ? 'bg-white text-[#5B4DF5] shadow-xs'
                 : 'text-gray-600 hover:text-gray-900'

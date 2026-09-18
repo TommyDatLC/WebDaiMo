@@ -29,14 +29,14 @@ export const ListItemCard: FC<ListItemCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`relative px-6 py-2.5 cursor-pointer transition-all duration-150 select-none ${
-        isActive ? 'bg-purple-50/30' : 'hover:bg-gray-50/80'
+      className={`relative px-6 py-2.5 cursor-pointer transition-all duration-400 ease-expo select-none ${
+        isActive ? 'bg-purple-50/40' : 'hover:bg-gray-50/80'
       } ${className}`}
     >
       {/* Vertical Active Indicator Pill Bar on the left */}
       {isActive && (
         <div
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-14 bg-[#5B4DF5] rounded-r-full shadow-sm"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-14 bg-[#5B4DF5] rounded-r-full shadow-sm animate-in fade-in zoom-in-y duration-500 ease-expo"
           aria-hidden="true"
         />
       )}
@@ -84,7 +84,7 @@ export const ListItemCard: FC<ListItemCardProps> = ({
               e.stopPropagation();
               onActionClick?.();
             }}
-            className="text-[12.5px] font-bold text-[#5B4DF5] hover:underline focus:outline-none"
+            className="text-[12.5px] font-bold text-[#5B4DF5] hover:underline focus:outline-none transition-transform duration-300 ease-expo hover:translate-x-0.5 active:scale-95 inline-block"
           >
             {actionText}
           </button>
