@@ -15,26 +15,29 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
-// Monotone black, white and gray base map tile layers
+// Authentic Google Maps base tile layers (No API Key required, fast CDN, zero watermarks)
 const TILE_CONFIGS: Record<MapType, { url: string; subdomains: string[]; maxZoom: number }> = {
   roadmap: {
-    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    subdomains: ['a', 'b', 'c', 'd'],
+    // Official Google Maps Roadmap
+    url: 'https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+    subdomains: ['0', '1', '2', '3'],
     maxZoom: 20,
   },
   satellite: {
-    url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    // Official Google Maps Hybrid (Satellite Imagery + Street Labels)
+    url: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
+    subdomains: ['0', '1', '2', '3'],
     maxZoom: 20,
   },
   terrain: {
-    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    subdomains: ['a', 'b', 'c', 'd'],
+    // Official Google Maps Terrain
+    url: 'https://mt{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+    subdomains: ['0', '1', '2', '3'],
     maxZoom: 20,
   },
 };
 
-const TRAFFIC_TILE_URL = 'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}';
+const TRAFFIC_TILE_URL = 'https://mt{s}.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}';
 
 export const DaiMoWardMap: FC = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -198,7 +201,7 @@ export const DaiMoWardMap: FC = () => {
       if (!trafficLayerRef.current) {
         trafficLayerRef.current = L.tileLayer(TRAFFIC_TILE_URL, {
           maxZoom: 20,
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+          subdomains: ['0', '1', '2', '3'],
         });
       }
       trafficLayerRef.current.addTo(map);
@@ -219,8 +222,11 @@ export const DaiMoWardMap: FC = () => {
     if (geojsonLayerRef.current && mapInstanceRef.current) {
       mapInstanceRef.current.fitBounds(geojsonLayerRef.current.getBounds(), {
         padding: [60, 60],
+        maxZoom: 15,
         animate: true,
       });
+    } else {
+      mapInstanceRef.current?.setView(centerCoords, 14, { animate: true });
     }
   };
 
@@ -235,7 +241,7 @@ export const DaiMoWardMap: FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-[#f3f4f6] font-sans monotone-map">
+    <div className={`relative w-full h-full overflow-hidden bg-[#f3f4f6] font-sans ${mapType !== 'satellite' ? 'monotone-map' : ''}`}>
       {/* Monotone Leaflet Map Canvas (Black & White with Purple Accents) */}
       <div ref={mapContainerRef} className="absolute inset-0 w-full h-full z-10" />
 
