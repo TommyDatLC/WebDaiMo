@@ -66,9 +66,9 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F2F6] text-gray-900 font-sans flex flex-col">
+    <div className="h-screen w-screen bg-[#F0F2F6] text-gray-900 font-sans flex flex-col overflow-hidden m-0 p-0">
       {/* Top Application Bar */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 px-4 sm:px-6 py-2.5 flex items-center justify-between shadow-xs">
+      <header className="h-14 shrink-0 bg-white/90 backdrop-blur-md border-b border-gray-200 px-4 sm:px-6 flex items-center justify-between shadow-xs z-50">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 rounded-xl bg-[#5B4DF5] flex items-center justify-center text-white shadow-sm">
             <Sparkles className="w-4 h-4" />
@@ -131,16 +131,13 @@ export function App() {
       </header>
 
       {/* Main Content Area */}
-      {viewMode === 'daimo' ? (
-        /* GOOGLE MAPS UI - PHƯỜNG ĐẠI MỖ WARD BORDER */
-        <div className="relative flex-1 w-full h-[calc(100vh-57px)] overflow-hidden">
-          <DaiMoWardMap />
-        </div>
-      ) : viewMode === 'assembled' ? (
-        /* ASSEMBLED PREVIEW (Matching Screenshot Pixel-for-Pixel) */
-        <div className="relative flex-1 w-full h-[calc(100vh-57px)] overflow-hidden">
-          {/* Map Background Layer */}
-          <MapBackground activeRouteId={activeListItem} />
+      <main className="flex-1 w-full h-[calc(100vh-56px)] relative overflow-hidden">
+        {viewMode === 'daimo' && <DaiMoWardMap />}
+        {viewMode === 'assembled' && (
+          /* ASSEMBLED PREVIEW (Matching Screenshot Pixel-for-Pixel) */
+          <div className="relative w-full h-full overflow-hidden">
+            {/* Map Background Layer */}
+            <MapBackground activeRouteId={activeListItem} />
 
           {/* Floating UI Card composed of the atomic UI elements */}
           <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-30">
@@ -327,9 +324,12 @@ export function App() {
             </div>
           </div>
         </div>
-      ) : (
+      )}
+
+      {viewMode === 'elements' && (
         /* INDIVIDUAL UI ELEMENTS CATALOG SHOWCASE */
-        <main className="flex-1 max-w-6xl w-full mx-auto p-6 sm:p-8 space-y-10">
+        <div className="w-full h-full overflow-y-auto p-6 sm:p-8">
+          <div className="max-w-6xl mx-auto space-y-10">
           <div className="space-y-1">
             <h2 className="text-2xl font-extrabold text-gray-900 tracking-tight">
               Design System Component Library
@@ -665,8 +665,10 @@ export function App() {
               </div>
             </section>
           </div>
-        </main>
-      )}
+        </div>
+      </div>
+    )}
+  </main>
 
       {/* Floating toast notification */}
       {notification && (

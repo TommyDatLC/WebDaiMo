@@ -127,7 +127,35 @@ export const DaiMoWardMap: FC = () => {
     // Fit map smoothly to Dai Mo Ward bounds
     map.fitBounds(geoLayer.getBounds(), { padding: [60, 60] });
 
+    // Ensure map takes 100% of the document height immediately & on container resize
+    const invalidate = () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    };
+
+    const resizeObserver = new ResizeObserver(() => {
+      invalidate();
+    });
+
+    if (mapContainerRef.current) {
+      resizeObserver.observe(mapContainerRef.current);
+    }
+
+    window.addEventListener('resize', invalidate);
+
+    const animId = requestAnimationFrame(invalidate);
+    const t1 = setTimeout(invalidate, 80);
+    const t2 = setTimeout(invalidate, 250);
+    const t3 = setTimeout(invalidate, 500);
+
     return () => {
+      cancelAnimationFrame(animId);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      window.removeEventListener('resize', invalidate);
+      resizeObserver.disconnect();
       map.remove();
       mapInstanceRef.current = null;
     };
@@ -192,7 +220,7 @@ export const DaiMoWardMap: FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full min-h-[500px] overflow-hidden bg-[#e5e3df] font-sans">
+    <div className="relative w-full h-full overflow-hidden bg-[#e5e3df] font-sans">
       {/* Leaflet Map Canvas */}
       <div ref={mapContainerRef} className="absolute inset-0 w-full h-full z-10" />
 
