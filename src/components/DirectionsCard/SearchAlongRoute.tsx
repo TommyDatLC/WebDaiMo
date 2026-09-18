@@ -1,5 +1,6 @@
-import { useState, type FC, type ReactNode, type ChangeEvent } from 'react';
+import { useState, type FC, type ReactNode } from 'react';
 import { Fuel, Utensils, MoreHorizontal, Users, Coffee, Bed, SlidersHorizontal } from 'lucide-react';
+import { Slider } from '../ui/Slider';
 import { PoiCategoryId } from '../../types/directions';
 
 interface SearchAlongRouteProps {
@@ -64,14 +65,6 @@ export const SearchAlongRoute: FC<SearchAlongRouteProps> = ({
     }
   };
 
-  const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = parseInt(e.target.value, 10);
-    setSearchRadius(val);
-    if (onRadiusChange) {
-      onRadiusChange(val);
-    }
-  };
-
   return (
     <div className="pt-1">
       {/* Title with slider toggle */}
@@ -96,14 +89,17 @@ export const SearchAlongRoute: FC<SearchAlongRouteProps> = ({
             <span className="font-semibold text-gray-700">Search radius:</span>
             <span className="font-bold text-[#5B4DF5]">{searchRadius} km from route</span>
           </div>
-          <input
-            type="range"
+          <Slider
             min={1}
             max={25}
             step={1}
             value={searchRadius}
-            onChange={handleSliderChange}
-            className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            onChange={(val) => {
+              setSearchRadius(val);
+              onRadiusChange?.(val);
+            }}
+            showValueBadge={false}
+            showMinMaxLabels={false}
           />
           <div className="flex justify-between text-[10px] text-gray-400 font-medium">
             <span>1 km (nearby)</span>

@@ -20,7 +20,7 @@ export const HeaderBar: FC<HeaderBarProps> = ({
         type="button"
         onClick={onMenuClick}
         aria-label="Menu"
-        className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-800 hover:bg-gray-100 hover:text-[#5B4DF5] hover:scale-105 active:scale-90 transition-all duration-300 ease-expo focus:outline-none"
+        className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none active:scale-95"
       >
         <Menu className="w-6 h-6 stroke-[2.5]" />
       </button>
@@ -33,7 +33,7 @@ export const HeaderBar: FC<HeaderBarProps> = ({
         type="button"
         onClick={onClose}
         aria-label="Close"
-        className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-800 hover:bg-gray-100 hover:text-red-500 hover:rotate-90 hover:scale-105 active:scale-90 transition-all duration-300 ease-expo focus:outline-none"
+        className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-800 hover:bg-gray-100 transition-colors focus:outline-none active:scale-95"
       >
         <X className="w-6 h-6 stroke-[2.5]" />
       </button>

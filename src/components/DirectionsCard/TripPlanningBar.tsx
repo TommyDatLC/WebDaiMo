@@ -1,5 +1,6 @@
-import { useState, type FC, type ChangeEvent } from 'react';
+import { useState, type FC } from 'react';
 import { ChevronDown, Clock, Sliders } from 'lucide-react';
+import { Slider } from '../ui/Slider';
 
 interface TripPlanningBarProps {
   onDepartureChange?: (timeStr: string) => void;
@@ -33,14 +34,6 @@ export const TripPlanningBar: FC<TripPlanningBarProps> = ({
   };
 
   const trafficInfo = getTrafficStatus(timeMinutes);
-
-  const handleSliderChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const val = parseInt(e.target.value, 10);
-    setTimeMinutes(val);
-    if (onDepartureChange) {
-      onDepartureChange(formatMinutes(val));
-    }
-  };
 
   return (
     <div className="mb-4">
@@ -121,14 +114,17 @@ export const TripPlanningBar: FC<TripPlanningBarProps> = ({
             </span>
           </div>
 
-          <input
-            type="range"
+          <Slider
             min={0}
-            max={1430}
+            max={1425}
             step={15}
             value={timeMinutes}
-            onChange={handleSliderChange}
-            className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            onChange={(val) => {
+              setTimeMinutes(val);
+              onDepartureChange?.(formatMinutes(val));
+            }}
+            showValueBadge={false}
+            showMinMaxLabels={false}
           />
 
           <div className="flex items-center justify-between text-[10.5px]">

@@ -21,7 +21,7 @@ export const ZoomControls: FC<ZoomControlsProps> = ({
         onClick={onZoomIn}
         title="Zoom in"
         aria-label="Zoom in"
-        className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all duration-300 ease-expo focus:outline-none active:scale-90"
+        className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-colors focus:outline-none active:scale-95"
       >
         <Plus className="w-4 h-4 stroke-[2.5]" />
       </button>
@@ -30,7 +30,7 @@ export const ZoomControls: FC<ZoomControlsProps> = ({
         onClick={onZoomOut}
         title="Zoom out"
         aria-label="Zoom out"
-        className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all duration-300 ease-expo focus:outline-none active:scale-90"
+        className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-colors focus:outline-none active:scale-95"
       >
         <Minus className="w-4 h-4 stroke-[2.5]" />
       </button>
@@ -53,7 +53,7 @@ export const LocateButton: FC<LocateButtonProps> = ({
       onClick={onClick}
       title="Center map on your location"
       aria-label="Locate me"
-      className={`w-10 h-10 bg-white rounded-xl shadow-card border border-black/5 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all duration-400 ease-expo focus:outline-none active:scale-90 hover:scale-105 ${className}`}
+      className={`w-10 h-10 bg-white rounded-xl shadow-card border border-black/5 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all focus:outline-none active:scale-95 ${className}`}
     >
       <Crosshair className="w-4 h-4 stroke-[2.5]" />
     </button>
@@ -76,10 +76,10 @@ export const SatelliteToggle: FC<SatelliteToggleProps> = ({
       type="button"
       onClick={onToggle}
       title="Toggle Satellite view"
-      className={`group relative flex flex-col items-center justify-end w-14 h-14 rounded-2xl overflow-hidden shadow-card border-2 border-white hover:scale-110 active:scale-95 transition-all duration-400 ease-expo focus:outline-none ${className}`}
+      className={`group relative flex flex-col items-center justify-end w-14 h-14 rounded-2xl overflow-hidden shadow-card border-2 border-white hover:scale-105 transition-all focus:outline-none ${className}`}
     >
       <div
-        className={`absolute inset-0 bg-cover bg-center transition-all duration-500 ease-expo ${
+        className={`absolute inset-0 bg-cover bg-center transition-all duration-300 ${
           isSatellite ? 'bg-[#3b82f6]' : 'bg-[#264428]'
         }`}
         style={{

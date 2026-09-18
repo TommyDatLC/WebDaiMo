@@ -62,17 +62,17 @@ export const Slider: FC<SliderProps> = ({
       )}
 
       {/* Track & Thumb */}
-      <div className="relative flex items-center h-6">
+      <div className="relative flex items-center h-6 group cursor-pointer">
         {/* Background Track */}
         <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-          {/* Active Highlight Fill */}
+          {/* Active Highlight Fill - No transition for instant, lag-free sliding */}
           <div
-            className="h-full bg-[#5B4DF5] rounded-full transition-[width] duration-300 ease-expo"
+            className="h-full bg-[#5B4DF5] rounded-full"
             style={{ width: `${percentage}%` }}
           />
         </div>
 
-        {/* Real Range Input (Invisible overlay for perfect touch/keyboard accessibility) */}
+        {/* Real Range Input (Invisible overlay for touch and keyboard accessibility) */}
         <input
           type="range"
           min={min}
@@ -80,14 +80,14 @@ export const Slider: FC<SliderProps> = ({
           step={step}
           value={currentValue}
           onChange={handleChange}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+          className="peer absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
         />
 
-        {/* Custom Styled Thumb with ease-expo */}
+        {/* Custom Styled Dot Button Thumb - Scales 125% on hover, 0 position transition for instant feel */}
         <div
-          className="absolute w-5 h-5 bg-white border-2 border-[#5B4DF5] rounded-full shadow-md pointer-events-none transition-[left,transform] duration-300 ease-expo group-hover:scale-110 active:scale-95"
+          className="absolute w-5 h-5 bg-white border-2 border-[#5B4DF5] rounded-full shadow-md pointer-events-none transition-transform duration-150 ease-out group-hover:scale-125 peer-hover:scale-125 peer-active:scale-125"
           style={{
-            left: `calc(${percentage}% - 10px)`,
+            left: `calc(${percentage}% - ${percentage * 0.2}px)`,
           }}
         />
       </div>

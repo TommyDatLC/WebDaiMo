@@ -43,14 +43,14 @@ export const Dropdown: FC<DropdownProps> = ({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center text-[12.5px] font-bold text-gray-900 hover:text-[#5B4DF5] transition-colors duration-300 ease-expo focus:outline-none py-1"
+        className="flex items-center text-[12.5px] font-bold text-gray-900 hover:text-[#5B4DF5] transition-colors focus:outline-none py-1"
       >
         <span>
           {prefix}
           {selectedOption ? selectedOption.label : 'Select'}
         </span>
         <ChevronDown
-          className={`w-3.5 h-3.5 ml-1 stroke-[3] transition-transform duration-400 ease-expo ${
+          className={`w-3.5 h-3.5 ml-1 stroke-[3] transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
@@ -58,7 +58,7 @@ export const Dropdown: FC<DropdownProps> = ({
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute left-0 top-full mt-1.5 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 py-1.5 z-40 animate-dropdown-expo">
+        <div className="absolute left-0 top-full mt-1.5 w-48 bg-white rounded-2xl shadow-xl border border-gray-100 py-1.5 z-40 animate-in fade-in zoom-in-95 duration-100">
           {options.map((opt) => {
             const isSelected = opt.value === value;
             return (
@@ -69,7 +69,7 @@ export const Dropdown: FC<DropdownProps> = ({
                   onChange(opt.value);
                   setIsOpen(false);
                 }}
-                className={`w-full text-left px-3.5 py-2 text-xs font-semibold flex items-center justify-between transition-colors duration-300 ease-expo ${
+                className={`w-full text-left px-3.5 py-2 text-xs font-semibold flex items-center justify-between transition-colors ${
                   isSelected
                     ? 'text-[#5B4DF5] bg-purple-50/70'
                     : 'text-gray-800 hover:bg-gray-50'

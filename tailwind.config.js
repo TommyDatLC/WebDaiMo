@@ -20,12 +20,6 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
-      transitionTimingFunction: {
-        'expo': 'cubic-bezier(0.87, 0, 0.13, 1)',
-        'expo-in-out': 'cubic-bezier(0.87, 0, 0.13, 1)',
-        'expo-out': 'cubic-bezier(0.16, 1, 0.3, 1)',
-        'expo-in': 'cubic-bezier(0.7, 0, 0.84, 0)',
-      },
       boxShadow: {
         'card': '0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04)',
         'floating': '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
