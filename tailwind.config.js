@@ -18,7 +18,18 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: [
+          '"SF Pro Display"',
+          '"SF Pro Text"',
+          '"SF Pro"',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Inter',
+          '"Helvetica Neue"',
+          'Helvetica',
+          'Arial',
+          'sans-serif',
+        ],
       },
       boxShadow: {
         'card': '0 20px 40px -15px rgba(0, 0, 0, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04)',
