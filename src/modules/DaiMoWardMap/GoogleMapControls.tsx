@@ -77,7 +77,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                   }}
                   className={`flex flex-col items-center p-1.5 rounded-xl text-[11px] font-semibold transition-all ${
                     mapType === 'roadmap'
-                      ? 'bg-blue-50 text-[#1a73e8] border border-blue-200 font-bold'
+                      ? 'bg-purple-50 text-[#5B4DF5] border border-purple-200 font-bold'
                       : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
@@ -93,7 +93,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                   }}
                   className={`flex flex-col items-center p-1.5 rounded-xl text-[11px] font-semibold transition-all ${
                     mapType === 'satellite'
-                      ? 'bg-blue-50 text-[#1a73e8] border border-blue-200 font-bold'
+                      ? 'bg-purple-50 text-[#5B4DF5] border border-purple-200 font-bold'
                       : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
@@ -109,7 +109,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                   }}
                   className={`flex flex-col items-center p-1.5 rounded-xl text-[11px] font-semibold transition-all ${
                     mapType === 'terrain'
-                      ? 'bg-blue-50 text-[#1a73e8] border border-blue-200 font-bold'
+                      ? 'bg-purple-50 text-[#5B4DF5] border border-purple-200 font-bold'
                       : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
@@ -153,7 +153,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
             type="button"
             onClick={onToggleFullscreen}
             title={isFullscreen ? 'Thoát toàn màn hình' : 'Toàn màn hình'}
-            className="w-10 h-10 bg-white rounded-xl shadow-md border border-gray-200/80 flex items-center justify-center text-gray-700 hover:text-[#1a73e8] hover:bg-gray-50 transition-all active:scale-95"
+            className="w-10 h-10 bg-white rounded-xl shadow-md border border-gray-200/80 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all active:scale-95"
           >
             {isFullscreen ? (
               <Minimize2 className="w-4 h-4 stroke-[2.2]" />
@@ -168,7 +168,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
           type="button"
           onClick={onRecenter}
           title="Định vị vào Phường Đại Mỗ"
-          className="w-10 h-10 bg-white rounded-xl shadow-md border border-gray-200/80 flex items-center justify-center text-gray-700 hover:text-[#1a73e8] hover:bg-gray-50 transition-all active:scale-95"
+          className="w-10 h-10 bg-white rounded-xl shadow-md border border-gray-200/80 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all active:scale-95"
         >
           <Crosshair className="w-4 h-4 stroke-[2.2]" />
         </button>
@@ -192,7 +192,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
             onClick={onZoomIn}
             title="Phóng to"
             aria-label="Phóng to"
-            className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#1a73e8] hover:bg-gray-50 transition-colors active:scale-95"
+            className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-colors active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
           </button>
@@ -201,7 +201,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
             onClick={onZoomOut}
             title="Thu nhỏ"
             aria-label="Thu nhỏ"
-            className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#1a73e8] hover:bg-gray-50 transition-colors active:scale-95"
+            className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-colors active:scale-95"
           >
             <Minus className="w-4 h-4 stroke-[2.5]" />
           </button>

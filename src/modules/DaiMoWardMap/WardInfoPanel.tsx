@@ -30,44 +30,44 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
 
   return (
     <div
-      className={`absolute top-20 left-4 z-30 transition-all duration-300 ease-in-out pointer-events-auto select-none ${
+      className={`absolute top-4 left-4 z-30 transition-all duration-300 ease-in-out pointer-events-auto select-none ${
         isCollapsed ? '-translate-x-[calc(100%+16px)]' : 'translate-x-0'
       }`}
     >
       {/* Main Google Maps Information Card */}
-      <div className="w-[380px] sm:w-[410px] max-w-[calc(100vw-32px)] max-h-[calc(100vh-100px)] bg-white rounded-3xl shadow-xl border border-gray-200/80 overflow-hidden flex flex-col">
+      <div className="w-[380px] sm:w-[410px] max-w-[calc(100vw-32px)] max-h-[calc(100vh-60px)] bg-white rounded-3xl shadow-xl border border-gray-200/80 overflow-hidden flex flex-col">
         {/* Cover Photo Banner */}
-        <div className="relative h-44 w-full bg-gradient-to-tr from-slate-800 via-indigo-950 to-blue-900 overflow-hidden shrink-0">
+        <div className="relative h-44 w-full bg-gradient-to-tr from-slate-900 via-purple-950 to-slate-800 overflow-hidden shrink-0">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-80"
+            className="absolute inset-0 bg-cover bg-center opacity-75 grayscale contrast-125"
             style={{
               backgroundImage: `url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80')`,
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
 
           {/* Badge over photo */}
-          <div className="absolute top-3 left-3 bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-semibold text-white flex items-center gap-1.5 border border-white/10">
-            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+          <div className="absolute top-3 left-3 bg-[#5B4DF5] text-white px-2.5 py-1 rounded-full text-[11px] font-bold flex items-center gap-1.5 shadow-md">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
             <span>Ranh giới hành chính</span>
           </div>
 
           <div className="absolute bottom-3 left-4 right-4 text-white">
             <h2 className="text-xl font-extrabold tracking-tight">Phường Đại Mỗ</h2>
-            <p className="text-xs text-gray-200 font-medium">
+            <p className="text-xs text-gray-300 font-medium">
               Quận Nam Từ Liêm, Thành phố Hà Nội
             </p>
           </div>
         </div>
 
         {/* Tab Header Bar */}
-        <div className="flex border-b border-gray-100 px-4 shrink-0">
+        <div className="flex border-b border-gray-100 px-4 shrink-0 bg-white">
           <button
             type="button"
             onClick={() => setActiveTab('overview')}
             className={`py-3 px-3 text-xs font-bold border-b-2 transition-colors ${
               activeTab === 'overview'
-                ? 'border-[#1a73e8] text-[#1a73e8]'
+                ? 'border-[#5B4DF5] text-[#5B4DF5]'
                 : 'border-transparent text-gray-500 hover:text-gray-900'
             }`}
           >
@@ -78,7 +78,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
             onClick={() => setActiveTab('boundary')}
             className={`py-3 px-3 text-xs font-bold border-b-2 transition-colors ${
               activeTab === 'boundary'
-                ? 'border-[#1a73e8] text-[#1a73e8]'
+                ? 'border-[#5B4DF5] text-[#5B4DF5]'
                 : 'border-transparent text-gray-500 hover:text-gray-900'
             }`}
           >
@@ -89,7 +89,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
             onClick={() => setActiveTab('about')}
             className={`py-3 px-3 text-xs font-bold border-b-2 transition-colors ${
               activeTab === 'about'
-                ? 'border-[#1a73e8] text-[#1a73e8]'
+                ? 'border-[#5B4DF5] text-[#5B4DF5]'
                 : 'border-transparent text-gray-500 hover:text-gray-900'
             }`}
           >
@@ -99,17 +99,17 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
 
         {/* Scrollable Body */}
         <div className="overflow-y-auto flex-1 p-5 space-y-5">
-          {/* Quick Action Buttons (Google Maps standard) */}
+          {/* Action Buttons (Purple Accent) */}
           <div className="flex items-center justify-around pb-2 border-b border-gray-100">
             <button
               type="button"
               onClick={onDirectionsClick}
               className="flex flex-col items-center group focus:outline-none"
             >
-              <div className="w-10 h-10 rounded-full bg-[#1a73e8] text-white flex items-center justify-center shadow-md group-hover:bg-[#1557b0] transition-colors">
+              <div className="w-10 h-10 rounded-full bg-[#5B4DF5] text-white flex items-center justify-center shadow-md group-hover:bg-[#4D3EE0] transition-colors">
                 <Navigation2 className="w-4 h-4 fill-white" />
               </div>
-              <span className="mt-1.5 text-[11px] font-semibold text-[#1a73e8]">
+              <span className="mt-1.5 text-[11px] font-semibold text-[#5B4DF5]">
                 Đường đi
               </span>
             </button>
@@ -119,7 +119,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
               onClick={onSaveClick}
               className="flex flex-col items-center group focus:outline-none"
             >
-              <div className="w-10 h-10 rounded-full border border-gray-300 text-[#1a73e8] flex items-center justify-center hover:bg-blue-50 transition-colors">
+              <div className="w-10 h-10 rounded-full border border-gray-200 text-gray-700 flex items-center justify-center hover:bg-purple-50 hover:text-[#5B4DF5] hover:border-purple-200 transition-colors">
                 <Bookmark className="w-4 h-4" />
               </div>
               <span className="mt-1.5 text-[11px] font-semibold text-gray-700">Lưu</span>
@@ -130,7 +130,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
               onClick={onShareClick}
               className="flex flex-col items-center group focus:outline-none"
             >
-              <div className="w-10 h-10 rounded-full border border-gray-300 text-[#1a73e8] flex items-center justify-center hover:bg-blue-50 transition-colors">
+              <div className="w-10 h-10 rounded-full border border-gray-200 text-gray-700 flex items-center justify-center hover:bg-purple-50 hover:text-[#5B4DF5] hover:border-purple-200 transition-colors">
                 <Share2 className="w-4 h-4" />
               </div>
               <span className="mt-1.5 text-[11px] font-semibold text-gray-700">
@@ -143,7 +143,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
               onClick={onDirectionsClick}
               className="flex flex-col items-center group focus:outline-none"
             >
-              <div className="w-10 h-10 rounded-full border border-gray-300 text-[#1a73e8] flex items-center justify-center hover:bg-blue-50 transition-colors">
+              <div className="w-10 h-10 rounded-full border border-gray-200 text-gray-700 flex items-center justify-center hover:bg-purple-50 hover:text-[#5B4DF5] hover:border-purple-200 transition-colors">
                 <Send className="w-4 h-4" />
               </div>
               <span className="mt-1.5 text-[11px] font-semibold text-gray-700">Gửi ĐT</span>
@@ -154,22 +154,22 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
             <div className="space-y-4 text-xs">
               {/* Stat Chips */}
               <div className="grid grid-cols-2 gap-2.5">
-                <div className="p-3 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#1a73e8] flex items-center justify-center shrink-0">
+                <div className="p-3 bg-purple-50/60 rounded-2xl border border-purple-100 flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-[#5B4DF5] text-white flex items-center justify-center shrink-0 shadow-xs">
                     <Maximize2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-[10.5px] text-gray-400 font-medium">Diện tích</p>
+                    <p className="text-[10.5px] text-gray-500 font-medium">Diện tích</p>
                     <p className="text-xs font-bold text-gray-900">~ 8,1 km²</p>
                   </div>
                 </div>
 
-                <div className="p-3 bg-gray-50 rounded-2xl border border-gray-100 flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                <div className="p-3 bg-gray-50 rounded-2xl border border-gray-200 flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-xl bg-gray-900 text-white flex items-center justify-center shrink-0">
                     <Users className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="text-[10.5px] text-gray-400 font-medium">Dân số</p>
+                    <p className="text-[10.5px] text-gray-500 font-medium">Dân số</p>
                     <p className="text-xs font-bold text-gray-900">80.462 người</p>
                   </div>
                 </div>
@@ -178,10 +178,10 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
               {/* Information Rows */}
               <div className="space-y-3 pt-1">
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-[#5B4DF5] shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-gray-900">Vị trí hành chính</p>
-                    <p className="text-gray-500 mt-0.5">
+                    <p className="font-bold text-gray-900">Vị trí hành chính</p>
+                    <p className="text-gray-600 mt-0.5">
                       Phường Đại Mỗ, Quận Nam Từ Liêm, Thành phố Hà Nội, Việt Nam
                     </p>
                   </div>
@@ -190,7 +190,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                 <div className="flex items-start gap-3">
                   <Compass className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-gray-900">Tọa độ trung tâm</p>
+                    <p className="font-bold text-gray-900">Tọa độ trung tâm</p>
                     <p className="text-gray-500 mt-0.5 font-mono">
                       20.9930° N, 105.7720° E
                     </p>
@@ -198,10 +198,10 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-[#5B4DF5] shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-gray-900">Mã bưu chính & Hành chính</p>
-                    <p className="text-gray-500 mt-0.5">
+                    <p className="font-bold text-gray-900">Mã bưu chính & Hành chính</p>
+                    <p className="text-gray-600 mt-0.5">
                       Mã hành chính: <strong>00637</strong> • Mã bưu chính: <strong>12010</strong>
                     </p>
                   </div>
@@ -212,13 +212,13 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
 
           {activeTab === 'boundary' && (
             <div className="space-y-4 text-xs">
-              <div className="p-3 bg-red-50/80 rounded-2xl border border-red-100 text-red-900">
-                <p className="font-bold flex items-center gap-1.5 text-red-700 mb-1">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-600 inline-block" />
-                  Đường viền ranh giới màu đỏ (Google Maps Style)
+              <div className="p-3.5 bg-purple-50 rounded-2xl border border-purple-200 text-purple-950">
+                <p className="font-bold flex items-center gap-2 text-[#5B4DF5] mb-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#5B4DF5] inline-block" />
+                  Đường viền ranh giới màu tím (Monotone Style)
                 </p>
-                <p className="text-[11.5px] leading-relaxed text-red-800/90">
-                  Đường viền nét đứt màu đỏ trên bản đồ thể hiện chính xác chu vi địa giới hành chính của Phường Đại Mỗ theo cơ sở dữ liệu GIS chuẩn OpenStreetMap/Chính phủ.
+                <p className="text-[11.5px] leading-relaxed text-purple-900/90">
+                  Đường viền nét đứt màu tím trên bản đồ thể hiện chính xác chu vi địa giới hành chính của Phường Đại Mỗ theo cơ sở dữ liệu GIS chuẩn OpenStreetMap/Chính phủ.
                 </p>
               </div>
 
@@ -226,19 +226,19 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                 <h4 className="font-bold text-gray-900">Tiếp giáp địa lý:</h4>
                 <ul className="space-y-1.5 text-gray-600 pl-1">
                   <li className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#5B4DF5]" />
                     <span><strong>Phía Bắc:</strong> Giáp Láng - Hòa Lạc / Mễ Trì</span>
                   </li>
                   <li className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-800" />
                     <span><strong>Phía Đông:</strong> Giáp Thanh Xuân và Yên Hòa (Khuất Duy Tiến, Lương Thế Vinh)</span>
                   </li>
                   <li className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-500" />
                     <span><strong>Phía Nam:</strong> Giáp Quận Hà Đông và Thanh Liệt (Tố Hữu)</span>
                   </li>
                   <li className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
                     <span><strong>Phía Tây:</strong> Giáp Phường Tây Mỗ và Dương Nội (Sa Đôi)</span>
                   </li>
                 </ul>
@@ -266,7 +266,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                   href="https://vi.wikipedia.org/wiki/%C4%90%E1%BA%A1i_M%E1%BB%A1"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-[#1a73e8] font-bold hover:underline"
+                  className="inline-flex items-center gap-1 text-[#5B4DF5] font-bold hover:underline"
                 >
                   <span>Tìm hiểu thêm trên Wikipedia</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -282,7 +282,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
         type="button"
         onClick={() => setIsCollapsed(!isCollapsed)}
         title={isCollapsed ? 'Mở rộng thông tin Đại Mỗ' : 'Thu gọn thông tin'}
-        className="absolute -right-9 top-6 w-9 h-9 bg-white rounded-r-xl shadow-lg border border-l-0 border-gray-200 flex items-center justify-center text-gray-700 hover:text-[#1a73e8] hover:bg-gray-50 transition-all focus:outline-none"
+        className="absolute -right-9 top-6 w-9 h-9 bg-white rounded-r-xl shadow-lg border border-l-0 border-gray-200 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all focus:outline-none"
       >
         {isCollapsed ? (
           <ChevronRight className="w-4 h-4 stroke-[2.5]" />

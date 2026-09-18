@@ -89,7 +89,7 @@ export const GoogleSearchBar: FC<GoogleSearchBarProps> = ({
           onClick={onDirectionsClick}
           aria-label="Chỉ đường"
           title="Chỉ đường đến Đại Mỗ"
-          className="w-9 h-9 ml-1 flex items-center justify-center bg-[#1a73e8] hover:bg-[#1557b0] text-white rounded-full shadow-sm hover:shadow transition-all active:scale-95"
+          className="w-9 h-9 ml-1 flex items-center justify-center bg-[#5B4DF5] hover:bg-[#4A3EE0] text-white rounded-full shadow-sm hover:shadow transition-all active:scale-95"
         >
           <Navigation2 className="w-4 h-4 fill-white" />
         </button>
@@ -103,7 +103,7 @@ export const GoogleSearchBar: FC<GoogleSearchBarProps> = ({
           onClick={onRecenter}
           className="flex items-center gap-1 px-3 py-1.5 bg-white/95 backdrop-blur-md hover:bg-white text-xs font-semibold text-gray-700 rounded-full shadow-md border border-gray-200 shrink-0 transition-all hover:border-gray-300 active:scale-95"
         >
-          <Crosshair className="w-3.5 h-3.5 text-[#1a73e8]" />
+          <Crosshair className="w-3.5 h-3.5 text-[#5B4DF5]" />
           <span>Về Đại Mỗ</span>
         </button>
 
@@ -120,7 +120,7 @@ export const GoogleSearchBar: FC<GoogleSearchBarProps> = ({
               }}
               className={`flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full shadow-md border shrink-0 transition-all active:scale-95 ${
                 isSelected
-                  ? 'bg-[#1a73e8] text-white border-[#1a73e8]'
+                  ? 'bg-[#5B4DF5] text-white border-[#5B4DF5]'
                   : 'bg-white/95 backdrop-blur-md hover:bg-white text-gray-700 border-gray-200 hover:border-gray-300'
               }`}
             >

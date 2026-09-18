@@ -3,7 +3,6 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import daiMoPolygonData from '../../data/dai_mo_ward_polygon.json';
-import { GoogleSearchBar } from './GoogleSearchBar';
 import { WardInfoPanel } from './WardInfoPanel';
 import { GoogleMapControls } from './GoogleMapControls';
 import { MapType } from './types';
@@ -16,10 +15,23 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
 });
 
-const TILE_URLS: Record<MapType, string> = {
-  roadmap: 'https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-  satellite: 'https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
-  terrain: 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+// Monotone black, white and gray base map tile layers
+const TILE_CONFIGS: Record<MapType, { url: string; subdomains: string[]; maxZoom: number }> = {
+  roadmap: {
+    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    subdomains: ['a', 'b', 'c', 'd'],
+    maxZoom: 20,
+  },
+  satellite: {
+    url: 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+    subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    maxZoom: 20,
+  },
+  terrain: {
+    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+    subdomains: ['a', 'b', 'c', 'd'],
+    maxZoom: 20,
+  },
 };
 
 const TRAFFIC_TILE_URL = 'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}';
@@ -50,22 +62,23 @@ export const DaiMoWardMap: FC = () => {
 
     mapInstanceRef.current = map;
 
-    // Base Google Tile Layer
-    const baseLayer = L.tileLayer(TILE_URLS.roadmap, {
-      maxZoom: 20,
-      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    // Base Monotone Light Tile Layer
+    const config = TILE_CONFIGS.roadmap;
+    const baseLayer = L.tileLayer(config.url, {
+      maxZoom: config.maxZoom,
+      subdomains: config.subdomains,
     }).addTo(map);
     baseTileLayerRef.current = baseLayer;
 
-    // Render Dai Mo Ward Boundary (Google Maps Style: red dashed border + soft tint)
+    // Render Dai Mo Ward Boundary (Monotone Style: Purple border + soft purple tint)
     const geoLayer = L.geoJSON(daiMoPolygonData as unknown as GeoJSON.GeoJsonObject, {
       style: () => ({
-        color: '#EA4335', // Google Red
-        weight: 2.8,
-        opacity: 0.95,
-        dashArray: '6, 6', // Google Maps administrative boundary dash
-        fillColor: '#EA4335',
-        fillOpacity: 0.12,
+        color: '#5B4DF5', // Signature Purple
+        weight: 3.2,
+        opacity: 1,
+        dashArray: '8, 6', // Monotone dashed boundary
+        fillColor: '#5B4DF5',
+        fillOpacity: 0.16, // Soft purple wash
       }),
       onEachFeature: (feature, layer) => {
         const props = feature.properties;
@@ -78,10 +91,10 @@ export const DaiMoWardMap: FC = () => {
               ${props.district || 'Quận Nam Từ Liêm'}, ${props.city || 'Hà Nội'}
             </div>
             <div style="display: flex; gap: 8px; font-size: 11px; font-weight: 600; color: #374151;">
-              <span style="background: #fee2e2; color: #991b1b; padding: 2px 6px; rounded: 6px;">
+              <span style="background: #f4f2ff; color: #5B4DF5; padding: 2px 6px; border-radius: 6px; border: 1px solid #e9e6ff;">
                 Diện tích: ~${props.area_km2 || '8.1'} km²
               </span>
-              <span style="background: #e0e7ff; color: #3730a3; padding: 2px 6px; rounded: 6px;">
+              <span style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 6px;">
                 Dân số: ${props.population ? Number(props.population).toLocaleString() : '80.462'}
               </span>
             </div>
@@ -92,8 +105,8 @@ export const DaiMoWardMap: FC = () => {
           mouseover: (e) => {
             const l = e.target;
             l.setStyle({
-              weight: 3.8,
-              fillOpacity: 0.22,
+              weight: 4.5,
+              fillOpacity: 0.3,
             });
           },
           mouseout: (e) => {
@@ -105,17 +118,18 @@ export const DaiMoWardMap: FC = () => {
 
     geojsonLayerRef.current = geoLayer;
 
-    // Add Center Marker (Google Maps Red Pin)
+    // Add Center Marker (Signature Purple Pin & Label)
     const customPin = L.divIcon({
-      className: 'custom-google-pin',
+      className: 'custom-purple-pin',
       html: `
         <div style="position: relative; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%);">
-          <div style="background: #EA4335; color: white; padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: bold; font-family: -apple-system, sans-serif; box-shadow: 0 4px 10px rgba(0,0,0,0.25); white-space: nowrap; border: 1.5px solid white; margin-bottom: 2px;">
+          <div style="background: #5B4DF5; color: white; padding: 4px 10px; border-radius: 10px; font-size: 11.5px; font-weight: 800; font-family: -apple-system, 'SF Pro Display', sans-serif; box-shadow: 0 4px 14px rgba(91,77,245,0.45); white-space: nowrap; border: 1.5px solid white; margin-bottom: 3px; letter-spacing: -0.01em;">
             Phường Đại Mỗ
           </div>
-          <svg width="28" height="36" viewBox="0 0 24 32" fill="none" style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12z" fill="#EA4335"/>
+          <svg width="28" height="36" viewBox="0 0 24 32" fill="none" style="filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12z" fill="#5B4DF5"/>
             <circle cx="12" cy="12" r="5" fill="#ffffff"/>
+            <circle cx="12" cy="12" r="2.5" fill="#5B4DF5"/>
           </svg>
         </div>
       `,
@@ -167,9 +181,10 @@ export const DaiMoWardMap: FC = () => {
     const map = mapInstanceRef.current;
 
     baseTileLayerRef.current.remove();
-    const newLayer = L.tileLayer(TILE_URLS[mapType], {
-      maxZoom: 20,
-      subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+    const config = TILE_CONFIGS[mapType];
+    const newLayer = L.tileLayer(config.url, {
+      maxZoom: config.maxZoom,
+      subdomains: config.subdomains,
     }).addTo(map);
     baseTileLayerRef.current = newLayer;
   }, [mapType]);
@@ -220,21 +235,14 @@ export const DaiMoWardMap: FC = () => {
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-[#e5e3df] font-sans">
-      {/* Leaflet Map Canvas */}
+    <div className="relative w-full h-full overflow-hidden bg-[#f3f4f6] font-sans monotone-map">
+      {/* Monotone Leaflet Map Canvas (Black & White with Purple Accents) */}
       <div ref={mapContainerRef} className="absolute inset-0 w-full h-full z-10" />
 
-      {/* Google Maps Search Bar */}
-      <GoogleSearchBar
-        onRecenter={handleRecenter}
-        onDirectionsClick={handleRecenter}
-        onSearch={() => handleRecenter()}
-      />
-
-      {/* Google Maps Place Details Drawer for Dai Mo Ward */}
+      {/* Place Details Drawer for Dai Mo Ward (Positioned top-left without search bar) */}
       <WardInfoPanel
         onDirectionsClick={handleRecenter}
-        onSaveClick={() => alert('Đã lưu Phường Đại Mỗ vào danh sách địa điểm yêu thích')}
+        onSaveClick={() => alert('Đã lưu Phường Đại Mỗ vào danh sách yêu thích')}
         onShareClick={() => {
           if (navigator.share) {
             navigator.share({
@@ -247,7 +255,7 @@ export const DaiMoWardMap: FC = () => {
         }}
       />
 
-      {/* Google Maps Controls (Layers, Zoom, Pegman, Re-center) */}
+      {/* Map Controls (Layers, Zoom, Pegman, Re-center) */}
       <GoogleMapControls
         mapType={mapType}
         onMapTypeChange={setMapType}
