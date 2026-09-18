@@ -30,9 +30,10 @@ import {
 } from './components/ui';
 
 import { MapBackground } from './components/Map/MapBackground';
+import { DaiMoWardMap } from './modules/DaiMoWardMap';
 
 export function App() {
-  const [viewMode, setViewMode] = useState<'assembled' | 'elements'>('assembled');
+  const [viewMode, setViewMode] = useState<'daimo' | 'assembled' | 'elements'>('daimo');
 
   // Interactive states for UI elements showcase
   const [sliderVal1, setSliderVal1] = useState(65);
@@ -82,12 +83,26 @@ export function App() {
           </div>
         </div>
 
-        {/* View Switcher: Assembled Map Preview vs Elements Showcase */}
+        {/* View Switcher: Dai Mo Google Maps vs Assembled Map Preview vs Elements Showcase */}
         <div className="flex items-center bg-gray-100 p-1 rounded-xl border border-gray-200/80">
           <button
             type="button"
+            onClick={() => setViewMode('daimo')}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+              viewMode === 'daimo'
+                ? 'bg-white text-[#EA4335] shadow-xs'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#EA4335]" />
+              Phường Đại Mỗ (Google Maps UI)
+            </span>
+          </button>
+          <button
+            type="button"
             onClick={() => setViewMode('assembled')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
               viewMode === 'assembled'
                 ? 'bg-white text-[#5B4DF5] shadow-xs'
                 : 'text-gray-600 hover:text-gray-900'
@@ -95,13 +110,13 @@ export function App() {
           >
             <span className="flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5" />
-              Assembled Layout
+              Directions Card
             </span>
           </button>
           <button
             type="button"
             onClick={() => setViewMode('elements')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
               viewMode === 'elements'
                 ? 'bg-white text-[#5B4DF5] shadow-xs'
                 : 'text-gray-600 hover:text-gray-900'
@@ -109,14 +124,19 @@ export function App() {
           >
             <span className="flex items-center gap-1.5">
               <Sliders className="w-3.5 h-3.5" />
-              Individual UI Elements
+              UI Elements
             </span>
           </button>
         </div>
       </header>
 
       {/* Main Content Area */}
-      {viewMode === 'assembled' ? (
+      {viewMode === 'daimo' ? (
+        /* GOOGLE MAPS UI - PHƯỜNG ĐẠI MỖ WARD BORDER */
+        <div className="relative flex-1 w-full h-[calc(100vh-57px)] overflow-hidden">
+          <DaiMoWardMap />
+        </div>
+      ) : viewMode === 'assembled' ? (
         /* ASSEMBLED PREVIEW (Matching Screenshot Pixel-for-Pixel) */
         <div className="relative flex-1 w-full h-[calc(100vh-57px)] overflow-hidden">
           {/* Map Background Layer */}
