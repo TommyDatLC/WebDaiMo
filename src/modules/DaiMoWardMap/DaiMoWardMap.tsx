@@ -55,7 +55,7 @@ const createRelicIcon = (relic: Relic, isSelected: boolean) => {
     iconSvg = `<path d="M12 2L3 7.5v2.5h2v9h14v-9h2V7.5L12 2zm0 3.2l5 3H7l5-3zM8 12h8v5H8v-5z"/>`;
   }
 
-  const pinBg = relic.rankingBadge === 'QG' ? '#5B4DF5' : '#D97706';
+  const pinBg = relic.rankingBadge === 'QG' ? '#5B4DF5' : '#18181B';
   const scale = isSelected ? 'scale(1.22)' : 'scale(1)';
 
   return L.divIcon({
@@ -249,13 +249,13 @@ export const DaiMoWardMap: FC = () => {
         `
         <div style="font-family: 'SF Pro Display', -apple-system, sans-serif; width: 200px; padding: 2px;">
           ${thumbHtml}
-          <div style="display: flex; gap: 4px; margin-bottom: 4px;">
+          <div style="display: flex; gap: 4px; margin-bottom: 5px;">
             <span style="background: ${
-              relic.rankingBadge === 'QG' ? '#5B4DF5' : '#D97706'
-            }; color: white; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px;">
-              ${relic.rankingBadge === 'QG' ? 'Di tích QG' : 'Cấp TP'}
+              relic.rankingBadge === 'QG' ? '#5B4DF5' : '#18181B'
+            }; color: white; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">
+              ${relic.rankingBadge === 'QG' ? 'Di tích Quốc gia' : 'Di tích Thành phố'}
             </span>
-            <span style="background: #f3f4f6; color: #374151; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 4px;">
+            <span style="background: #f4f4f5; color: #18181b; border: 1px solid #e4e4e7; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">
               ${relic.category}
             </span>
           </div>

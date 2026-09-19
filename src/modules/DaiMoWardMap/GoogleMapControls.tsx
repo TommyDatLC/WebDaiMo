@@ -117,8 +117,8 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                       : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-800 mb-1 flex items-center justify-center border border-amber-200 shadow-xs">
-                    <Mountain className="w-4 h-4 text-amber-700" />
+                  <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-800 mb-1 flex items-center justify-center border border-zinc-200 shadow-xs">
+                    <Mountain className="w-4 h-4 text-zinc-700" />
                   </div>
                   <span>Địa hình</span>
                 </button>
@@ -130,16 +130,16 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                   type="button"
                   onClick={onToggleTraffic}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
-                    showTraffic ? 'bg-amber-50 text-amber-900 font-bold' : 'hover:bg-gray-50 text-gray-700'
+                    showTraffic ? 'bg-purple-50 text-[#5B4DF5] font-bold' : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
-                    <TrafficCone className="w-3.5 h-3.5 text-amber-600" />
+                    <TrafficCone className={`w-3.5 h-3.5 ${showTraffic ? 'text-[#5B4DF5]' : 'text-gray-500'}`} />
                     <span>Lớp giao thông</span>
                   </span>
                   <span
                     className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
-                      showTraffic ? 'bg-amber-500 border-amber-600' : 'border-gray-300'
+                      showTraffic ? 'bg-[#5B4DF5] border-[#5B4DF5]' : 'border-gray-300'
                     }`}
                   >
                     {showTraffic && <span className="w-1.5 h-1.5 bg-white rounded-full" />}

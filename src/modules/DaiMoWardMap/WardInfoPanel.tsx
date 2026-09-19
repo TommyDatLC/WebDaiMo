@@ -79,20 +79,6 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
     return matchesFilter && matchesSearch;
   });
 
-  const getCategoryColor = (type: string) => {
-    switch (type) {
-      case 'chua':
-        return 'bg-amber-500/10 text-amber-700 border-amber-200';
-      case 'dinh':
-        return 'bg-purple-500/10 text-purple-700 border-purple-200';
-      case 'den':
-        return 'bg-rose-500/10 text-rose-700 border-rose-200';
-      case 'mieu':
-        return 'bg-emerald-500/10 text-emerald-700 border-emerald-200';
-      default:
-        return 'bg-gray-100 text-gray-700 border-gray-200';
-    }
-  };
 
   return (
     <>
@@ -211,14 +197,14 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                     <span
                       className={`px-2.5 py-1 rounded-full text-[10.5px] font-extrabold tracking-wide uppercase shadow-md flex items-center gap-1 ${
                         selectedRelic.rankingBadge === 'QG'
-                          ? 'bg-[#5B4DF5] text-white'
-                          : 'bg-amber-600 text-white'
+                          ? 'bg-[#5B4DF5] text-white shadow-purple-900/30'
+                          : 'bg-zinc-900 text-white border border-white/20 shadow-black/30'
                       }`}
                     >
                       <Award className="w-3 h-3" />
                       <span>{selectedRelic.ranking}</span>
                     </span>
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/90 text-gray-800 backdrop-blur-sm shadow-sm">
+                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-zinc-900 backdrop-blur-md shadow-sm border border-white/40">
                       {selectedRelic.category}
                     </span>
                   </div>
@@ -361,7 +347,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                         </div>
 
                         <div className="flex items-start gap-3">
-                          <Award className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                          <Award className="w-4 h-4 text-[#5B4DF5] shrink-0 mt-0.5" />
                           <div>
                             <p className="font-bold text-gray-900">Quyết định xếp hạng</p>
                             <p className="text-gray-600 mt-0.5 leading-snug">{selectedRelic.decision}</p>
@@ -379,7 +365,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                         </div>
 
                         <div className="flex items-start gap-3">
-                          <Maximize2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <Maximize2 className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
                           <div>
                             <p className="font-bold text-gray-900">Tổng diện tích khuôn viên</p>
                             <p className="text-gray-600 mt-0.5 font-semibold">{selectedRelic.area}</p>
@@ -387,7 +373,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                         </div>
 
                         <div className="flex items-start gap-3">
-                          <Calendar className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
+                          <Calendar className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
                           <div>
                             <p className="font-bold text-gray-900">Lễ hội & Sinh hoạt tín ngưỡng</p>
                             <p className="text-gray-600 mt-0.5 leading-snug">{selectedRelic.festival}</p>
@@ -685,22 +671,23 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
 
                             {/* Info */}
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-1.5 mb-0.5">
-                                <span
-                                  className={`text-[9.5px] font-extrabold px-1.5 py-0.2 rounded border ${getCategoryColor(
-                                    r.type
-                                  )}`}
-                                >
+                              <div className="flex items-center gap-1.5 mb-1 flex-wrap">
+                                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-zinc-100 text-zinc-800 border border-zinc-200/90 tracking-tight">
                                   {r.category}
                                 </span>
                                 <span
-                                  className={`text-[9.5px] font-extrabold px-1.5 py-0.2 rounded ${
+                                  className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold border ${
                                     r.rankingBadge === 'QG'
-                                      ? 'bg-purple-100 text-[#5B4DF5]'
-                                      : 'bg-amber-100 text-amber-700'
+                                      ? 'bg-purple-50 text-[#5B4DF5] border-purple-200/90'
+                                      : 'bg-zinc-100 text-zinc-700 border-zinc-200/90'
                                   }`}
                                 >
-                                  {r.rankingBadge === 'QG' ? 'Di tích QG' : 'Cấp TP'}
+                                  <span
+                                    className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                                      r.rankingBadge === 'QG' ? 'bg-[#5B4DF5]' : 'bg-zinc-500'
+                                    }`}
+                                  />
+                                  {r.rankingBadge === 'QG' ? 'Di tích Quốc gia' : 'Di tích Thành phố'}
                                 </span>
                               </div>
 
