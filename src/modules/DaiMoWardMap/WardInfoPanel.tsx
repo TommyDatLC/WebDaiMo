@@ -198,10 +198,10 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                       className={`px-2.5 py-1 rounded-full text-[10.5px] font-extrabold tracking-wide uppercase shadow-md flex items-center gap-1 ${
                         selectedRelic.rankingBadge === 'QG'
                           ? 'bg-[#5B4DF5] text-white shadow-purple-900/30'
-                          : 'bg-zinc-900 text-white border border-white/20 shadow-black/30'
+                          : 'bg-amber-500 text-slate-950 font-black shadow-amber-950/20'
                       }`}
                     >
-                      <Award className="w-3 h-3" />
+                      <Award className={`w-3 h-3 ${selectedRelic.rankingBadge === 'QG' ? 'text-white' : 'text-slate-950'}`} />
                       <span>{selectedRelic.ranking}</span>
                     </span>
                     <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-zinc-900 backdrop-blur-md shadow-sm border border-white/40">
@@ -679,12 +679,12 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                                   className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold border ${
                                     r.rankingBadge === 'QG'
                                       ? 'bg-purple-50 text-[#5B4DF5] border-purple-200/90'
-                                      : 'bg-zinc-100 text-zinc-700 border-zinc-200/90'
+                                      : 'bg-amber-50/90 text-slate-800 border-amber-200/90'
                                   }`}
                                 >
                                   <span
                                     className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                                      r.rankingBadge === 'QG' ? 'bg-[#5B4DF5]' : 'bg-zinc-500'
+                                      r.rankingBadge === 'QG' ? 'bg-[#5B4DF5]' : 'bg-amber-500'
                                     }`}
                                   />
                                   {r.rankingBadge === 'QG' ? 'Di tích Quốc gia' : 'Di tích Thành phố'}
