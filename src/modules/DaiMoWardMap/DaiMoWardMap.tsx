@@ -100,6 +100,7 @@ export const DaiMoWardMap: FC = () => {
   const [showTraffic, setShowTraffic] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [selectedRelicId, setSelectedRelicId] = useState<string | null>(null);
+  const [isPanelCollapsed, setIsPanelCollapsed] = useState<boolean>(false);
 
   const centerCoords: [number, number] = [20.993, 105.772];
 
@@ -239,6 +240,7 @@ export const DaiMoWardMap: FC = () => {
 
       marker.on('click', () => {
         setSelectedRelicId(relic.id);
+        setIsPanelCollapsed(false);
         map.flyTo(relic.coordinates, 16, { duration: 1.0 });
       });
 
@@ -350,6 +352,7 @@ export const DaiMoWardMap: FC = () => {
 
   const handleFlyToRelic = (relic: Relic) => {
     setSelectedRelicId(relic.id);
+    setIsPanelCollapsed(false);
     if (mapInstanceRef.current) {
       mapInstanceRef.current.flyTo(relic.coordinates, 16, {
         duration: 1.0,
@@ -381,8 +384,15 @@ export const DaiMoWardMap: FC = () => {
       <WardInfoPanel
         relics={relics}
         selectedRelicId={selectedRelicId}
-        onSelectRelic={setSelectedRelicId}
+        onSelectRelic={(id) => {
+          setSelectedRelicId(id);
+          if (id) {
+            setIsPanelCollapsed(false);
+          }
+        }}
         onFlyToRelic={handleFlyToRelic}
+        isCollapsed={isPanelCollapsed}
+        onToggleCollapse={() => setIsPanelCollapsed((prev) => !prev)}
         onDirectionsClick={handleRecenter}
         onSaveClick={() => alert('Đã lưu thông tin di tích vào danh sách yêu thích')}
         onShareClick={() => {
@@ -408,6 +418,7 @@ export const DaiMoWardMap: FC = () => {
         onRecenter={handleRecenter}
         onToggleFullscreen={handleToggleFullscreen}
         isFullscreen={isFullscreen}
+        isPanelOpen={!isPanelCollapsed}
       />
     </div>
   );

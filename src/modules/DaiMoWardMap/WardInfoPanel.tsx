@@ -30,6 +30,8 @@ interface WardInfoPanelProps {
   onDirectionsClick?: () => void;
   onShareClick?: () => void;
   onSaveClick?: () => void;
+  isCollapsed?: boolean;
+  onToggleCollapse?: () => void;
 }
 
 export const WardInfoPanel: FC<WardInfoPanelProps> = ({
@@ -37,8 +39,12 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
   selectedRelicId,
   onSelectRelic,
   onFlyToRelic,
+  isCollapsed: controlledIsCollapsed,
+  onToggleCollapse,
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [internalCollapsed, setInternalCollapsed] = useState(false);
+  const isCollapsed = controlledIsCollapsed !== undefined ? controlledIsCollapsed : internalCollapsed;
+  const handleToggleCollapse = onToggleCollapse || (() => setInternalCollapsed((prev) => !prev));
   const [activeOverviewTab, setActiveOverviewTab] = useState<'relics' | 'ward' | 'boundary'>('relics');
   const [activeRelicTab, setActiveRelicTab] = useState<'overview' | 'history' | 'architecture' | 'photos'>('overview');
   const [activeFilter, setActiveFilter] = useState<string>('all');
@@ -53,8 +59,8 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
   useEffect(() => {
     setCurrentPhotoIndex(0);
     setActiveRelicTab('overview');
-    if (selectedRelic) {
-      setIsCollapsed(false);
+    if (selectedRelic && isCollapsed) {
+      handleToggleCollapse();
     }
   }, [selectedRelicId, selectedRelic]);
 
@@ -83,8 +89,10 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
   return (
     <>
       <div
-        className={`absolute top-4 left-4 z-30 transition-all duration-300 ease-in-out pointer-events-auto select-none ${
-          isCollapsed ? '-translate-x-[calc(100%+16px)]' : 'translate-x-0'
+        className={`absolute top-3 sm:top-4 left-3 sm:left-4 z-30 transition-all duration-300 ease-in-out pointer-events-auto select-none ${
+          isCollapsed
+            ? '-translate-x-[calc(100%+12px)] sm:-translate-x-[calc(100%+16px)]'
+            : 'translate-x-0'
         }`}
       >
         {/* Decorative Bleeding Warm Gradient Blobs behind panel (Calendly-style Warmth) */}
@@ -92,7 +100,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
 
         {/* Luxury Red & Gold Gradient Border Wrapper */}
         <div className="p-[1.5px] rounded-[25.5px] bg-gradient-to-b from-[#F59E0B] via-[#DC2626] to-[#D97706] shadow-2xl">
-          <div className="w-[390px] sm:w-[420px] max-w-[calc(100vw-32px)] max-h-[calc(100vh-50px)] bg-white rounded-[24px] overflow-hidden flex flex-col font-sans">
+          <div className="w-[calc(100vw-68px)] sm:w-[420px] max-w-[calc(100vw-68px)] sm:max-w-[420px] max-h-[calc(100vh-40px)] sm:max-h-[calc(100vh-50px)] bg-white rounded-[24px] overflow-hidden flex flex-col font-sans">
           {/* RENDER MODE A: SPECIFIC RELIC DETAILS */}
           {selectedRelic ? (
             <div className="flex flex-col h-full overflow-hidden">
@@ -106,10 +114,18 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                   <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
                   <span className="font-title font-bold text-sm tracking-wide">Sổ tay di tích Đại Mỗ</span>
                 </button>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <span className="text-[11px] font-semibold text-[#6B4F4F] bg-[#F5EFE6] border border-[#EADBCA] px-2 py-0.5 rounded-full">
                     {selectedIndex + 1}/{relics.length}
                   </span>
+                  <button
+                    type="button"
+                    onClick={handleToggleCollapse}
+                    title="Thu gọn bảng"
+                    className="w-6 h-6 rounded-full hover:bg-[#F5EFE6] flex items-center justify-center text-[#6B4F4F] hover:text-[#3B0D11] sm:hidden"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5 stroke-[2.5]" />
+                  </button>
                   <button
                     type="button"
                     onClick={() => onSelectRelic(null)}
@@ -526,6 +542,17 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                   <span>Bản đồ hành chính & Di tích</span>
                 </div>
 
+                {/* Mobile & Quick Minimize Button */}
+                <button
+                  type="button"
+                  onClick={handleToggleCollapse}
+                  title="Thu gọn bảng thông tin"
+                  aria-label="Thu gọn bảng thông tin"
+                  className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 hover:bg-black/75 backdrop-blur-xs text-white flex items-center justify-center border border-white/20 shadow-md transition-all active:scale-95 z-10"
+                >
+                  <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+                </button>
+
                 <div className="absolute bottom-2.5 left-4 right-4 text-white">
                   <h2 className="text-2xl font-bold tracking-tight font-title">Phường Đại Mỗ</h2>
                   <p className="text-xs text-red-100/90 font-medium">
@@ -826,14 +853,17 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
         {/* Slide / Collapse Tab Handle on right */}
         <button
           type="button"
-          onClick={() => setIsCollapsed(!isCollapsed)}
+          onClick={handleToggleCollapse}
           title={isCollapsed ? 'Mở rộng bảng thông tin' : 'Thu gọn bảng thông tin'}
-          className="absolute -right-9 top-6 w-9 h-9 bg-white rounded-r-xl shadow-lg border border-l-0 border-[#EADBCA] flex items-center justify-center text-[#6B4F4F] hover:text-[#C62828] hover:bg-[#F5EFE6] transition-all focus:outline-none"
+          aria-label={isCollapsed ? 'Mở rộng bảng thông tin' : 'Thu gọn bảng thông tin'}
+          className="absolute -right-9 sm:-right-10 top-6 w-9 sm:w-10 h-12 sm:h-14 bg-white rounded-r-2xl shadow-xl border border-l-0 border-[#EADBCA] hover:border-[#F59E0B] flex flex-col items-center justify-center text-[#6B4F4F] hover:text-[#C62828] hover:bg-[#F5EFE6] transition-all focus:outline-none z-40 group cursor-pointer"
         >
+          {/* Accent indicator line on left seam */}
+          <div className="absolute left-0 top-2 bottom-2 w-0.5 bg-gradient-to-b from-[#F59E0B] to-[#C62828] rounded-full" />
           {isCollapsed ? (
-            <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+            <ChevronRight className="w-5 h-5 stroke-[2.5] text-[#C62828] group-hover:scale-110 transition-transform" />
           ) : (
-            <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5] text-[#6B4F4F] group-hover:text-[#C62828] group-hover:scale-110 transition-transform" />
           )}
         </button>
       </div>

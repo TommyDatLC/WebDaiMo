@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState, useEffect, type FC } from 'react';
 import { Layers, Plus, Minus, Crosshair, TrafficCone, Maximize2, Minimize2, Map, Satellite, Mountain } from 'lucide-react';
 import { MapType } from './types';
 
@@ -12,6 +12,7 @@ interface GoogleMapControlsProps {
   onRecenter: () => void;
   onToggleFullscreen?: () => void;
   isFullscreen?: boolean;
+  isPanelOpen?: boolean;
 }
 
 export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
@@ -24,13 +25,26 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
   onRecenter,
   onToggleFullscreen,
   isFullscreen = false,
+  isPanelOpen = true,
 }) => {
   const [layersMenuOpen, setLayersMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (isPanelOpen) {
+      setLayersMenuOpen(false);
+    }
+  }, [isPanelOpen]);
 
   return (
     <>
       {/* Bottom-Left: Google Maps Layer Switcher ("Lớp bản đồ") */}
-      <div className="absolute bottom-6 left-4 z-30 pointer-events-auto select-none">
+      <div
+        className={`absolute bottom-6 left-4 z-20 select-none transition-all duration-300 ${
+          isPanelOpen
+            ? 'opacity-0 pointer-events-none scale-95 translate-y-2'
+            : 'opacity-100 pointer-events-auto scale-100 translate-y-0'
+        }`}
+      >
         <div className="relative">
           {/* Main Layer Thumbnail Button */}
           <button
@@ -152,7 +166,11 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
       </div>
 
       {/* Bottom-Right: Google Maps Action & Zoom Pill */}
-      <div className="absolute bottom-6 right-4 z-30 flex flex-col items-center space-y-2 pointer-events-auto select-none">
+      <div
+        className={`absolute bottom-6 right-4 z-20 flex-col items-center space-y-2 select-none transition-all duration-300 ${
+          isPanelOpen ? 'hidden sm:flex' : 'flex'
+        } pointer-events-auto`}
+      >
         {/* Fullscreen toggle */}
         {onToggleFullscreen && (
           <button
