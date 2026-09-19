@@ -172,6 +172,9 @@ export const DaiMoWardMap: FC = () => {
           },
           click: () => {
             setSelectedRelicId(null);
+            if (window.innerWidth < 640) {
+              setIsPanelCollapsed(true);
+            }
           },
         });
       },
@@ -182,6 +185,13 @@ export const DaiMoWardMap: FC = () => {
     // Relics Layer Group
     const relicsGroup = L.layerGroup().addTo(map);
     relicsLayerRef.current = relicsGroup;
+
+    // Map Canvas Click Handler: on mobile, tapping the map closes the panel
+    map.on('click', () => {
+      if (window.innerWidth < 640) {
+        setIsPanelCollapsed(true);
+      }
+    });
 
     // Fit map smoothly to Dai Mo Ward bounds
     map.fitBounds(geoLayer.getBounds(), { padding: [60, 60] });
@@ -240,7 +250,11 @@ export const DaiMoWardMap: FC = () => {
 
       marker.on('click', () => {
         setSelectedRelicId(relic.id);
-        setIsPanelCollapsed(false);
+        if (window.innerWidth < 640) {
+          setIsPanelCollapsed(true);
+        } else {
+          setIsPanelCollapsed(false);
+        }
         map.flyTo(relic.coordinates, 16, { duration: 1.0 });
       });
 
@@ -287,6 +301,7 @@ export const DaiMoWardMap: FC = () => {
         if (btn) {
           btn.onclick = () => {
             setSelectedRelicId(relic.id);
+            setIsPanelCollapsed(false);
             marker.closePopup();
           };
         }
@@ -352,12 +367,20 @@ export const DaiMoWardMap: FC = () => {
 
   const handleFlyToRelic = (relic: Relic) => {
     setSelectedRelicId(relic.id);
-    setIsPanelCollapsed(false);
+    if (window.innerWidth < 640) {
+      setIsPanelCollapsed(true);
+    } else {
+      setIsPanelCollapsed(false);
+    }
     if (mapInstanceRef.current) {
       mapInstanceRef.current.flyTo(relic.coordinates, 16, {
         duration: 1.0,
         easeLinearity: 0.25,
       });
+      const marker = relicMarkersMapRef.current.get(relic.id);
+      if (marker) {
+        setTimeout(() => marker.openPopup(), 400);
+      }
     }
   };
 
@@ -387,7 +410,11 @@ export const DaiMoWardMap: FC = () => {
         onSelectRelic={(id) => {
           setSelectedRelicId(id);
           if (id) {
-            setIsPanelCollapsed(false);
+            if (window.innerWidth < 640) {
+              setIsPanelCollapsed(true);
+            } else {
+              setIsPanelCollapsed(false);
+            }
           }
         }}
         onFlyToRelic={handleFlyToRelic}

@@ -59,7 +59,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
   useEffect(() => {
     setCurrentPhotoIndex(0);
     setActiveRelicTab('overview');
-    if (selectedRelic && isCollapsed) {
+    if (selectedRelic && isCollapsed && window.innerWidth >= 640) {
       handleToggleCollapse();
     }
   }, [selectedRelicId, selectedRelic]);
@@ -383,7 +383,12 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                   <div className="grid grid-cols-3 gap-2 pb-2 border-b border-[#EADBCA]/60">
                     <button
                       type="button"
-                      onClick={() => onFlyToRelic(selectedRelic)}
+                      onClick={() => {
+                        onFlyToRelic(selectedRelic);
+                        if (window.innerWidth < 640 && !isCollapsed) {
+                          handleToggleCollapse();
+                        }
+                      }}
                       className="texture-badge-silk flex items-center justify-center gap-1.5 py-2 px-2.5 bg-gradient-to-r from-[#DC2626] to-[#991B1B] hover:from-[#B91C1C] hover:to-[#7F1D1D] text-white rounded-lg font-bold shadow-xs transition-all active:scale-95"
                     >
                       <Compass className="w-3.5 h-3.5 relative z-10" />
@@ -783,6 +788,9 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                             onClick={() => {
                               onSelectRelic(r.id);
                               onFlyToRelic(r);
+                              if (window.innerWidth < 640 && !isCollapsed) {
+                                handleToggleCollapse();
+                              }
                             }}
                             className="group texture-heritage-card p-3 rounded-2xl border border-[#EADBCA] hover:border-[#C62828]/60 shadow-xs hover:shadow-warm-sm cursor-pointer transition-all flex items-center gap-3 active:scale-[0.99] overflow-hidden"
                           >
