@@ -30,3 +30,5 @@ github_access_token*
 .env
 .env.*
 !.env.example
+
+.vercel

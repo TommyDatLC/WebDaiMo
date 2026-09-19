@@ -522,14 +522,25 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                             );
                           }
                           if (isSubHeading) {
+                            const colonIndex = para.indexOf(': ');
+                            if (colonIndex !== -1) {
+                              const label = para.substring(0, colonIndex + 1);
+                              const content = para.substring(colonIndex + 2);
+                              return (
+                                <p key={idx} className="font-sans text-[12px] leading-relaxed pt-1.5 text-[#6B4F4F]">
+                                  <strong className="font-sans font-bold text-[#3B0D11]">{label} </strong>
+                                  <span>{content}</span>
+                                </p>
+                              );
+                            }
                             return (
-                              <h4 key={idx} className="font-title font-bold text-sm text-[#3B0D11] pt-1 tracking-wide">
+                              <p key={idx} className="font-sans font-bold text-[12px] text-[#3B0D11] pt-1.5 leading-relaxed">
                                 {para}
-                              </h4>
+                              </p>
                             );
                           }
                           return (
-                            <p key={idx} className="text-[#6B4F4F] text-[11.5px] leading-relaxed">
+                            <p key={idx} className="font-sans text-[#6B4F4F] text-[11.5px] leading-relaxed">
                               {para}
                             </p>
                           );
@@ -870,7 +881,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                       <div className="flex items-start gap-3">
                         <MapPin className="w-4 h-4 text-[#C62828] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-title font-bold text-sm text-[#3B0D11]">Vị trí hành chính</p>
+                          <p className="font-sans font-bold text-xs text-[#3B0D11]">Vị trí hành chính</p>
                           <p className="text-[#6B4F4F] mt-0.5">
                             Phường Đại Mỗ, Quận Nam Từ Liêm, Thành phố Hà Nội, Việt Nam
                           </p>
@@ -880,7 +891,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                       <div className="flex items-start gap-3">
                         <Compass className="w-4 h-4 text-[#6B4F4F] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-title font-bold text-sm text-[#3B0D11]">Tọa độ trung tâm</p>
+                          <p className="font-sans font-bold text-xs text-[#3B0D11]">Tọa độ trung tâm</p>
                           <p className="text-[#6B4F4F] mt-0.5 font-mono">
                             20.9930° N, 105.7720° E
                           </p>
@@ -890,7 +901,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                       <div className="flex items-start gap-3">
                         <CheckCircle2 className="w-4 h-4 text-[#C62828] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-title font-bold text-sm text-[#3B0D11]">Mã bưu chính & Hành chính</p>
+                          <p className="font-sans font-bold text-xs text-[#3B0D11]">Mã bưu chính & Hành chính</p>
                           <p className="text-[#6B4F4F] mt-0.5">
                             Mã hành chính: <strong>00637</strong> • Mã bưu chính: <strong>12010</strong>
                           </p>
@@ -904,7 +915,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                 {activeOverviewTab === 'boundary' && (
                   <div className="space-y-4">
                     <div className="space-y-2.5">
-                      <h4 className="font-title font-bold text-sm text-[#3B0D11] tracking-wide">Tiếp giáp địa lý:</h4>
+                      <h4 className="font-sans font-bold text-xs text-[#3B0D11] tracking-wide">Tiếp giáp địa lý:</h4>
                       <ul className="space-y-1.5 text-[#6B4F4F] pl-1">
                         <li className="flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#C62828]" />
@@ -926,7 +937,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                     </div>
 
                     <div className="space-y-2 pt-1 border-t border-[#EADBCA]/60">
-                      <h4 className="font-title font-bold text-sm text-[#3B0D11] tracking-wide">Trục giao thông chính:</h4>
+                      <h4 className="font-sans font-bold text-xs text-[#3B0D11] tracking-wide">Trục giao thông chính:</h4>
                       <p className="text-[#6B4F4F] leading-relaxed">
                         Đường Tố Hữu (Lê Văn Lương kéo dài), Đường 70, Phố Sa Đôi, Phố Quang Tiến, Cầu Đôi Đại Mỗ, Sông Nhuệ chảy qua địa bàn.
                       </p>
