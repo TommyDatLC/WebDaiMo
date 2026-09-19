@@ -195,7 +195,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                   {/* Badges Over Hero */}
                   <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
                     <span
-                      className={`px-2.5 py-1 rounded-full text-[10.5px] font-extrabold tracking-wide uppercase shadow-md flex items-center gap-1.5 border border-white/20 ${
+                      className={`texture-badge-silk px-2.5 py-1 rounded-full text-[10.5px] font-extrabold tracking-wide uppercase shadow-md flex items-center gap-1.5 border border-white/20 ${
                         selectedRelic.rankingBadge === 'QG'
                           ? 'bg-gradient-to-r from-[#EF4444] via-[#DC2626] to-[#991B1B] text-white shadow-red-950/30'
                           : 'bg-gradient-to-r from-[#F59E0B] via-[#D97706] to-[#B45309] text-white shadow-amber-950/30'
@@ -204,7 +204,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                       <Award className="w-3 h-3 text-white" />
                       <span>{selectedRelic.ranking}</span>
                     </span>
-                    <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-[#3B0D11] backdrop-blur-md shadow-sm border border-white/40">
+                    <span className="texture-paper-tag px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/95 text-[#3B0D11] backdrop-blur-md shadow-sm border border-white/40">
                       {selectedRelic.category}
                     </span>
                   </div>
@@ -282,20 +282,20 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                     <button
                       type="button"
                       onClick={() => onFlyToRelic(selectedRelic)}
-                      className="flex items-center justify-center gap-1.5 py-2 px-2.5 bg-[#C62828] hover:bg-[#991B1B] text-white rounded-lg font-bold shadow-xs transition-all active:scale-95"
+                      className="texture-badge-silk flex items-center justify-center gap-1.5 py-2 px-2.5 bg-gradient-to-r from-[#DC2626] to-[#991B1B] hover:from-[#B91C1C] hover:to-[#7F1D1D] text-white rounded-lg font-bold shadow-xs transition-all active:scale-95"
                     >
-                      <Compass className="w-3.5 h-3.5" />
-                      <span>Định vị</span>
+                      <Compass className="w-3.5 h-3.5 relative z-10" />
+                      <span className="relative z-10">Định vị</span>
                     </button>
 
                     <a
                       href={`https://www.google.com/maps/dir/?api=1&destination=${selectedRelic.coordinates[0]},${selectedRelic.coordinates[1]}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-center gap-1.5 py-2 px-2.5 bg-[#F5EFE6] hover:bg-[#EADBCA] text-[#3B0D11] border border-[#EADBCA] rounded-lg font-bold transition-all active:scale-95"
+                      className="texture-paper-tag flex items-center justify-center gap-1.5 py-2 px-2.5 bg-[#F5EFE6] hover:bg-[#EADBCA] text-[#3B0D11] border border-[#EADBCA] rounded-lg font-bold transition-all active:scale-95"
                     >
-                      <Navigation2 className="w-3.5 h-3.5 text-[#C62828]" />
-                      <span>Chỉ đường</span>
+                      <Navigation2 className="w-3.5 h-3.5 text-[#C62828] relative z-10" />
+                      <span className="relative z-10">Chỉ đường</span>
                     </a>
 
                     <button
@@ -310,10 +310,10 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                           alert(`Đã sao chép thông tin ${selectedRelic.name}!`);
                         }
                       }}
-                      className="flex items-center justify-center gap-1.5 py-2 px-2.5 bg-[#F5EFE6] hover:bg-[#EADBCA] text-[#3B0D11] border border-[#EADBCA] rounded-lg font-bold transition-all active:scale-95"
+                      className="texture-paper-tag flex items-center justify-center gap-1.5 py-2 px-2.5 bg-[#F5EFE6] hover:bg-[#EADBCA] text-[#3B0D11] border border-[#EADBCA] rounded-lg font-bold transition-all active:scale-95"
                     >
-                      <Share2 className="w-3.5 h-3.5 text-[#6B4F4F]" />
-                      <span>Chia sẻ</span>
+                      <Share2 className="w-3.5 h-3.5 text-[#6B4F4F] relative z-10" />
+                      <span className="relative z-10">Chia sẻ</span>
                     </button>
                   </div>
 
@@ -666,7 +666,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                               onSelectRelic(r.id);
                               onFlyToRelic(r);
                             }}
-                            className="group p-3 bg-white hover:bg-red-50/40 rounded-2xl border border-[#EADBCA] hover:border-[#C62828]/60 shadow-xs hover:shadow-warm-sm cursor-pointer transition-all flex items-center gap-3 active:scale-[0.99]"
+                            className="group texture-heritage-card p-3 rounded-2xl border border-[#EADBCA] hover:border-[#C62828]/60 shadow-xs hover:shadow-warm-sm cursor-pointer transition-all flex items-center gap-3 active:scale-[0.99] overflow-hidden"
                           >
                             {/* Thumbnail or Category Icon */}
                             <div className="w-12 h-12 rounded-xl overflow-hidden bg-[#F5EFE6] shrink-0 border border-[#EADBCA] relative flex items-center justify-center">
@@ -684,11 +684,11 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                             {/* Info */}
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-                                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#F5EFE6] text-[#3B0D11] border border-[#EADBCA] tracking-tight">
+                                <span className="texture-paper-tag inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#F5EFE6] text-[#3B0D11] border border-[#EADBCA] tracking-tight">
                                   {r.category}
                                 </span>
                                 <span
-                                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold text-white shadow-xs border ${
+                                  className={`texture-badge-silk inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold text-white shadow-xs border ${
                                     r.rankingBadge === 'QG'
                                       ? 'bg-gradient-to-r from-[#EF4444] via-[#DC2626] to-[#991B1B] border-red-400/30 shadow-red-950/20'
                                       : 'bg-gradient-to-r from-[#F59E0B] via-[#D97706] to-[#B45309] border-amber-300/40 shadow-amber-950/20'

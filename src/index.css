@@ -165,6 +165,62 @@
   letter-spacing: -0.01em;
 }
 
+/* ==========================================================================
+   Tactile Heritage Textures (Vietnamese Paper, Brocade & Silk Finishes)
+   ========================================================================== */
+
+/* 1. Traditional Vietnamese Brocade & Parchment Texture for Relic Cards */
+.texture-heritage-card {
+  position: relative;
+  background-color: #ffffff;
+  background-image: 
+    radial-gradient(circle at 100% 100%, rgba(198, 40, 40, 0.025) 0%, transparent 55%),
+    url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%236B4F4F' fill-opacity='0.042' fill-rule='evenodd'%3E%3Cpath d='M12 0L24 12L12 24L0 12L12 0zm0 3.2L3.2 12l8.8 8.8 8.8-8.8L12 3.2z'/%3E%3Ccircle cx='12' cy='12' r='1.8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: auto, 22px 22px;
+}
+
+.texture-heritage-card:hover {
+  background-color: #FAF7F2;
+  background-image: 
+    radial-gradient(circle at 100% 100%, rgba(198, 40, 40, 0.05) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C62828' fill-opacity='0.065' fill-rule='evenodd'%3E%3Cpath d='M12 0L24 12L12 24L0 12L12 0zm0 3.2L3.2 12l8.8 8.8 8.8-8.8L12 3.2z'/%3E%3Ccircle cx='12' cy='12' r='1.8'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* 2. Luminous Woven Silk & Sheen Texture for Ranking Badges */
+.texture-badge-silk {
+  position: relative;
+  overflow: hidden;
+}
+
+.texture-badge-silk::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: 
+    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.38) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='1.5' cy='1.5' r='0.8' fill='%23ffffff' fill-opacity='0.22'/%3E%3Ccircle cx='4.5' cy='4.5' r='0.8' fill='%23ffffff' fill-opacity='0.22'/%3E%3C/svg%3E");
+  background-size: 100% 100%, 6px 6px;
+  mix-blend-mode: overlay;
+}
+
+/* 3. Subtle Traditional Dó Paper Fiber Texture for Category Tags */
+.texture-paper-tag {
+  position: relative;
+  overflow: hidden;
+}
+
+.texture-paper-tag::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2h3v1H0zM4 6h3v1H4zM2 4h1v3H2z' fill='%236B4F4F' fill-opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 8px 8px;
+}
+
 /* Ensure Leaflet takes 100% responsive height */
 .leaflet-container {
   width: 100% !important;
