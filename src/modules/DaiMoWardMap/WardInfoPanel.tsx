@@ -195,10 +195,10 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                   {/* Badges Over Hero */}
                   <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
                     <span
-                      className={`px-2.5 py-1 rounded-full text-[10.5px] font-extrabold tracking-wide uppercase shadow-md flex items-center gap-1 ${
+                      className={`px-2.5 py-1 rounded-full text-[10.5px] font-extrabold tracking-wide uppercase shadow-md flex items-center gap-1.5 border border-white/20 ${
                         selectedRelic.rankingBadge === 'QG'
-                          ? 'bg-[#C62828] text-white shadow-red-950/20'
-                          : 'bg-[#D97706] text-white shadow-amber-950/20'
+                          ? 'bg-gradient-to-r from-[#EF4444] via-[#DC2626] to-[#991B1B] text-white shadow-red-950/30'
+                          : 'bg-gradient-to-r from-[#F59E0B] via-[#D97706] to-[#B45309] text-white shadow-amber-950/30'
                       }`}
                     >
                       <Award className="w-3 h-3 text-white" />
@@ -583,8 +583,16 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                         <p className="font-title font-bold text-[#C62828] text-sm tracking-wide">
                           10 Di tích Lịch sử – Văn hóa
                         </p>
-                        <p className="text-[11px] text-[#6B4F4F] mt-0.5">
-                          5 Di tích Quốc gia • 5 Di tích Cấp Thành phố
+                        <p className="text-[11px] text-[#6B4F4F] mt-0.5 flex items-center gap-1.5 font-medium">
+                          <span className="inline-flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#EF4444] to-[#991B1B]" />
+                            <strong className="text-[#C62828] font-bold">5 Di tích Quốc gia</strong>
+                          </span>
+                          <span>•</span>
+                          <span className="inline-flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#B45309]" />
+                            <strong className="text-[#D97706] font-bold">5 Di tích Thành phố</strong>
+                          </span>
                         </p>
                       </div>
                       <Landmark className="w-6 h-6 text-[#C62828] shrink-0 opacity-80" />
@@ -630,7 +638,11 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                             onClick={() => setActiveFilter(chip.id)}
                             className={`px-2.5 py-1 rounded-full text-[10.5px] font-bold whitespace-nowrap transition-all active:scale-95 ${
                               activeFilter === chip.id
-                                ? 'bg-[#C62828] text-white shadow-xs'
+                                ? chip.id === 'TP'
+                                  ? 'bg-gradient-to-r from-[#F59E0B] via-[#D97706] to-[#B45309] text-white shadow-xs'
+                                  : chip.id === 'QG'
+                                  ? 'bg-gradient-to-r from-[#EF4444] via-[#DC2626] to-[#991B1B] text-white shadow-xs'
+                                  : 'bg-[#C62828] text-white shadow-xs'
                                 : 'bg-[#F5EFE6] text-[#6B4F4F] hover:bg-[#EADBCA]'
                             }`}
                           >
@@ -676,18 +688,14 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                                   {r.category}
                                 </span>
                                 <span
-                                  className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-bold border ${
+                                  className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[10px] font-bold text-white shadow-xs border ${
                                     r.rankingBadge === 'QG'
-                                      ? 'bg-red-50 text-[#C62828] border-red-200/90'
-                                      : 'bg-amber-50/90 text-[#B45309] border-amber-200/90'
+                                      ? 'bg-gradient-to-r from-[#EF4444] via-[#DC2626] to-[#991B1B] border-red-400/30 shadow-red-950/20'
+                                      : 'bg-gradient-to-r from-[#F59E0B] via-[#D97706] to-[#B45309] border-amber-300/40 shadow-amber-950/20'
                                   }`}
                                 >
-                                  <span
-                                    className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                                      r.rankingBadge === 'QG' ? 'bg-[#C62828]' : 'bg-[#D97706]'
-                                    }`}
-                                  />
-                                  {r.rankingBadge === 'QG' ? 'Di tích Quốc gia' : 'Di tích Thành phố'}
+                                  <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0 shadow-xs" />
+                                  <span>{r.rankingBadge === 'QG' ? 'Di tích Quốc gia' : 'Di tích Thành phố'}</span>
                                 </span>
                               </div>
 

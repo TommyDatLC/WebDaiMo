@@ -56,6 +56,9 @@ const createRelicIcon = (relic: Relic, isSelected: boolean) => {
   }
 
   const pinBg = relic.rankingBadge === 'QG' ? '#C62828' : '#D97706';
+  const pinBadgeBg = relic.rankingBadge === 'QG'
+    ? 'linear-gradient(135deg, #EF4444 0%, #DC2626 50%, #991B1B 100%)'
+    : 'linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%)';
   const scale = isSelected ? 'scale(1.22)' : 'scale(1)';
 
   return L.divIcon({
@@ -63,7 +66,7 @@ const createRelicIcon = (relic: Relic, isSelected: boolean) => {
     html: `
       <div style="position: relative; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%) ${scale}; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer;">
         <div style="background: ${isSelected ? '#3B0D11' : 'rgba(59, 13, 17, 0.94)'}; color: white; padding: 3px 8px; border-radius: 8px; font-size: 11.5px; font-weight: 700; font-family: 'Playfair Display', 'Philosopher', 'Cormorant Garamond', Georgia, serif; box-shadow: 0 4px 14px rgba(59,13,17,0.35); white-space: nowrap; border: 1.5px solid #EADBCA; margin-bottom: 3px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 5px;">
-          <span style="background: ${pinBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 4.5px; border-radius: 4px; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;">${relic.rankingBadge}</span>
+          <span style="background: ${pinBadgeBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 5px; border-radius: 4px; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; box-shadow: 0 1px 3px rgba(0,0,0,0.25);">${relic.rankingBadge}</span>
           <span>${relic.name}</span>
         </div>
         <div style="position: relative; width: 32px; height: 42px; display: flex; align-items: center; justify-content: center;">
@@ -247,23 +250,23 @@ export const DaiMoWardMap: FC = () => {
 
       marker.bindPopup(
         `
-        <div style="font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; width: 210px; padding: 2px;">
+        <div style="font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; width: 210px; padding: 2px;">
           ${thumbHtml}
           <div style="display: flex; gap: 5px; margin-bottom: 6px;">
             <span style="background: ${
-              relic.rankingBadge === 'QG' ? '#FEF2F2' : '#FEF3C7'
-            }; color: ${
-              relic.rankingBadge === 'QG' ? '#C62828' : '#B45309'
-            }; border: 1px solid ${
-              relic.rankingBadge === 'QG' ? '#FECACA' : '#FDE68A'
-            }; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 9999px;">
+              relic.rankingBadge === 'QG'
+                ? 'linear-gradient(135deg, #EF4444 0%, #DC2626 50%, #991B1B 100%)'
+                : 'linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%)'
+            }; color: white; border: 1px solid ${
+              relic.rankingBadge === 'QG' ? 'rgba(254, 202, 202, 0.4)' : 'rgba(253, 230, 138, 0.4)'
+            }; font-size: 9px; font-weight: 800; padding: 2.5px 7px; border-radius: 9999px; box-shadow: 0 1px 3px rgba(0,0,0,0.18);">
               ${relic.rankingBadge === 'QG' ? 'Di tích Quốc gia' : 'Di tích Thành phố'}
             </span>
             <span style="background: #F5EFE6; color: #3B0D11; border: 1px solid #EADBCA; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 9999px;">
               ${relic.category}
             </span>
           </div>
-          <div style="font-size: 13.5px; font-weight: 700; color: #3B0D11; margin-bottom: 3px; line-height: 1.3;">
+          <div style="font-family: 'Playfair Display', 'Philosopher', serif; font-size: 14.5px; font-weight: 700; color: #3B0D11; margin-bottom: 3px; line-height: 1.3;">
             ${relic.name}
           </div>
           <div style="font-size: 11px; color: #6B4F4F; margin-bottom: 8px; line-height: 1.3;">
