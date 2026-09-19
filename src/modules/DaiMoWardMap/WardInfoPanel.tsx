@@ -87,7 +87,12 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
           isCollapsed ? '-translate-x-[calc(100%+16px)]' : 'translate-x-0'
         }`}
       >
-        <div className="w-[390px] sm:w-[420px] max-w-[calc(100vw-32px)] max-h-[calc(100vh-50px)] bg-white rounded-[24px] shadow-card border border-[#EADBCA] overflow-hidden flex flex-col font-sans">
+        {/* Decorative Bleeding Warm Gradient Blobs behind panel (Calendly-style Warmth) */}
+        <div className="absolute -inset-2 bg-gradient-to-br from-[#F59E0B]/30 via-[#DC2626]/20 to-[#D97706]/30 rounded-[30px] blur-md opacity-80 pointer-events-none -z-10" />
+
+        {/* Luxury Red & Gold Gradient Border Wrapper */}
+        <div className="p-[1.5px] rounded-[25.5px] bg-gradient-to-b from-[#F59E0B] via-[#DC2626] to-[#D97706] shadow-2xl">
+          <div className="w-[390px] sm:w-[420px] max-w-[calc(100vw-32px)] max-h-[calc(100vh-50px)] bg-white rounded-[24px] overflow-hidden flex flex-col font-sans">
           {/* RENDER MODE A: SPECIFIC RELIC DETAILS */}
           {selectedRelic ? (
             <div className="flex flex-col h-full overflow-hidden">
@@ -577,25 +582,27 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                 {/* TAB 1: SỔ TAY DI TÍCH (10 ĐỊA DANH) */}
                 {activeOverviewTab === 'relics' && (
                   <div className="space-y-3">
-                    {/* Header summary banner */}
-                    <div className="p-3 bg-red-50/80 rounded-2xl border border-red-200/80 flex items-center justify-between">
-                      <div>
-                        <p className="font-title font-bold text-[#C62828] text-sm tracking-wide">
+                    {/* Header summary banner with rich Imperial Gradient */}
+                    <div className="texture-badge-silk relative overflow-hidden p-3.5 bg-gradient-to-r from-[#DC2626] via-[#B91C1C] to-[#881337] rounded-2xl border border-red-400/40 shadow-sm shadow-red-950/20 flex items-center justify-between text-white">
+                      <div className="relative z-10">
+                        <p className="font-title font-bold text-white text-[14.5px] tracking-wide drop-shadow-xs">
                           10 Di tích Lịch sử – Văn hóa
                         </p>
-                        <p className="text-[11px] text-[#6B4F4F] mt-0.5 flex items-center gap-1.5 font-medium">
-                          <span className="inline-flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#EF4444] to-[#991B1B]" />
-                            <strong className="text-[#C62828] font-bold">5 Di tích Quốc gia</strong>
+                        <p className="text-[11px] text-red-100/90 mt-1 flex items-center gap-1.5 font-medium flex-wrap">
+                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/15 backdrop-blur-xs border border-white/20 text-white font-bold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-white shadow-xs" />
+                            5 Di tích Quốc gia
                           </span>
                           <span>•</span>
-                          <span className="inline-flex items-center gap-1">
-                            <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#F59E0B] to-[#B45309]" />
-                            <strong className="text-[#D97706] font-bold">5 Di tích Thành phố</strong>
+                          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-400/25 backdrop-blur-xs border border-amber-300/30 text-amber-200 font-bold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-300 shadow-xs" />
+                            5 Di tích Thành phố
                           </span>
                         </p>
                       </div>
-                      <Landmark className="w-6 h-6 text-[#C62828] shrink-0 opacity-80" />
+                      <div className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur-xs border border-white/20 flex items-center justify-center shrink-0 shadow-xs relative z-10">
+                        <Landmark className="w-5 h-5 text-amber-200" />
+                      </div>
                     </div>
 
                     {/* Search & Filter pills */}
@@ -719,25 +726,25 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                 {/* TAB 2: THÔNG TIN PHƯỜNG ĐẠI MỖ */}
                 {activeOverviewTab === 'ward' && (
                   <div className="space-y-4">
-                    {/* Stat Chips */}
+                    {/* Stat Chips with rich Red and Gold Gradients */}
                     <div className="grid grid-cols-2 gap-2.5">
-                      <div className="p-3 bg-red-50/70 rounded-2xl border border-red-100 flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-xl bg-[#C62828] text-white flex items-center justify-center shrink-0 shadow-xs">
+                      <div className="texture-badge-silk relative overflow-hidden p-3 bg-gradient-to-br from-[#EF4444] via-[#DC2626] to-[#991B1B] text-white rounded-2xl border border-red-400/40 shadow-sm shadow-red-950/20 flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-white/20 backdrop-blur-xs text-white flex items-center justify-center shrink-0 border border-white/30 relative z-10 shadow-xs">
                           <Maximize2 className="w-4 h-4" />
                         </div>
-                        <div>
-                          <p className="text-[10.5px] text-[#6B4F4F] font-medium">Diện tích</p>
-                          <p className="text-xs font-bold text-[#3B0D11]">~ 8,1 km²</p>
+                        <div className="relative z-10">
+                          <p className="text-[10.5px] text-red-100 font-medium">Diện tích</p>
+                          <p className="text-xs font-bold text-white tracking-wide">~ 8,1 km²</p>
                         </div>
                       </div>
 
-                      <div className="p-3 bg-[#F5EFE6] rounded-2xl border border-[#EADBCA] flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-xl bg-[#3B0D11] text-white flex items-center justify-center shrink-0">
+                      <div className="texture-badge-silk relative overflow-hidden p-3 bg-gradient-to-br from-[#F59E0B] via-[#D97706] to-[#B45309] text-white rounded-2xl border border-amber-300/40 shadow-sm shadow-amber-950/20 flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl bg-white/20 backdrop-blur-xs text-white flex items-center justify-center shrink-0 border border-white/30 relative z-10 shadow-xs">
                           <Users className="w-4 h-4" />
                         </div>
-                        <div>
-                          <p className="text-[10.5px] text-[#6B4F4F] font-medium">Dân số</p>
-                          <p className="text-xs font-bold text-[#3B0D11]">80.462 người</p>
+                        <div className="relative z-10">
+                          <p className="text-[10.5px] text-amber-100 font-medium">Dân số</p>
+                          <p className="text-xs font-bold text-white tracking-wide">80.462 người</p>
                         </div>
                       </div>
                     </div>
@@ -780,17 +787,6 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                 {/* TAB 3: RANH GIỚI & ĐỊA LÝ */}
                 {activeOverviewTab === 'boundary' && (
                   <div className="space-y-4">
-                    <div className="p-3.5 bg-red-50 rounded-2xl border border-red-200/90 text-[#3B0D11]">
-                      <p className="font-bold flex items-center gap-2 text-[#C62828] mb-1">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#C62828] inline-block" />
-                        Đường viền ranh giới màu đỏ son (Hoàng gia & Di tích)
-                      </p>
-                      <p className="text-[11.5px] leading-relaxed text-[#6B4F4F]">
-                        Đường viền nét đứt màu đỏ son trên bản đồ thể hiện chính xác chu vi địa giới hành chính
-                        của Phường Đại Mỗ theo cơ sở dữ liệu GIS chuẩn OpenStreetMap/Chính phủ.
-                      </p>
-                    </div>
-
                     <div className="space-y-2.5">
                       <h4 className="font-title font-bold text-sm text-[#3B0D11] tracking-wide">Tiếp giáp địa lý:</h4>
                       <ul className="space-y-1.5 text-[#6B4F4F] pl-1">
@@ -825,6 +821,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
             </div>
           )}
         </div>
+      </div>
 
         {/* Slide / Collapse Tab Handle on right */}
         <button
