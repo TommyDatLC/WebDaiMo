@@ -64,8 +64,8 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
 
           {/* Layer Options Popover */}
           {layersMenuOpen && (
-            <div className="absolute left-0 bottom-full mb-2 w-52 bg-white rounded-2xl shadow-2xl border border-gray-200/90 p-2 z-40 animate-in fade-in zoom-in-95 duration-150">
-              <div className="text-[11px] font-bold text-gray-500 uppercase px-2 py-1 tracking-wider">
+            <div className="absolute left-0 bottom-full mb-2 w-52 bg-white rounded-2xl shadow-card border border-[#EADBCA] p-2 z-40 animate-in fade-in zoom-in-95 duration-150 font-sans">
+              <div className="text-[11px] font-bold text-[#6B4F4F] uppercase px-2 py-1 tracking-wider">
                 Loại bản đồ
               </div>
               <div className="grid grid-cols-3 gap-1.5 p-1">
@@ -77,12 +77,12 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                   }}
                   className={`flex flex-col items-center p-1.5 rounded-xl text-[11px] font-semibold transition-all ${
                     mapType === 'roadmap'
-                      ? 'bg-purple-50 text-[#5B4DF5] border border-purple-200 font-bold'
-                      : 'hover:bg-gray-50 text-gray-700'
+                      ? 'bg-red-50 text-[#C62828] border border-red-200 font-bold'
+                      : 'hover:bg-[#F5EFE6] text-[#3B0D11]'
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-gray-100 mb-1 flex items-center justify-center border border-gray-200 shadow-xs">
-                    <Map className="w-4 h-4 text-slate-700" />
+                  <div className="w-8 h-8 rounded-lg bg-[#F5EFE6] mb-1 flex items-center justify-center border border-[#EADBCA] shadow-xs">
+                    <Map className="w-4 h-4 text-[#3B0D11]" />
                   </div>
                   <span>Mặc định</span>
                 </button>
@@ -95,12 +95,12 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                   }}
                   className={`flex flex-col items-center p-1.5 rounded-xl text-[11px] font-semibold transition-all ${
                     mapType === 'satellite'
-                      ? 'bg-purple-50 text-[#5B4DF5] border border-purple-200 font-bold'
-                      : 'hover:bg-gray-50 text-gray-700'
+                      ? 'bg-red-50 text-[#C62828] border border-red-200 font-bold'
+                      : 'hover:bg-[#F5EFE6] text-[#3B0D11]'
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-slate-900 text-white mb-1 flex items-center justify-center border border-slate-800 shadow-xs">
-                    <Satellite className="w-4 h-4 text-indigo-300" />
+                  <div className="w-8 h-8 rounded-lg bg-[#3B0D11] text-white mb-1 flex items-center justify-center border border-[#2E0509] shadow-xs">
+                    <Satellite className="w-4 h-4 text-[#F59E0B]" />
                   </div>
                   <span>Vệ tinh</span>
                 </button>
@@ -113,33 +113,33 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                   }}
                   className={`flex flex-col items-center p-1.5 rounded-xl text-[11px] font-semibold transition-all ${
                     mapType === 'terrain'
-                      ? 'bg-purple-50 text-[#5B4DF5] border border-purple-200 font-bold'
-                      : 'hover:bg-gray-50 text-gray-700'
+                      ? 'bg-red-50 text-[#C62828] border border-red-200 font-bold'
+                      : 'hover:bg-[#F5EFE6] text-[#3B0D11]'
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-800 mb-1 flex items-center justify-center border border-zinc-200 shadow-xs">
-                    <Mountain className="w-4 h-4 text-zinc-700" />
+                  <div className="w-8 h-8 rounded-lg bg-[#F5EFE6] text-[#3B0D11] mb-1 flex items-center justify-center border border-[#EADBCA] shadow-xs">
+                    <Mountain className="w-4 h-4 text-[#6B4F4F]" />
                   </div>
                   <span>Địa hình</span>
                 </button>
               </div>
 
               {/* Additional toggles */}
-              <div className="border-t border-gray-100 mt-2 pt-2 px-1">
+              <div className="border-t border-[#EADBCA]/60 mt-2 pt-2 px-1">
                 <button
                   type="button"
                   onClick={onToggleTraffic}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs font-semibold transition-colors ${
-                    showTraffic ? 'bg-purple-50 text-[#5B4DF5] font-bold' : 'hover:bg-gray-50 text-gray-700'
+                    showTraffic ? 'bg-red-50 text-[#C62828] font-bold' : 'hover:bg-[#F5EFE6] text-[#3B0D11]'
                   }`}
                 >
                   <span className="flex items-center gap-1.5">
-                    <TrafficCone className={`w-3.5 h-3.5 ${showTraffic ? 'text-[#5B4DF5]' : 'text-gray-500'}`} />
+                    <TrafficCone className={`w-3.5 h-3.5 ${showTraffic ? 'text-[#C62828]' : 'text-[#6B4F4F]'}`} />
                     <span>Lớp giao thông</span>
                   </span>
                   <span
                     className={`w-3.5 h-3.5 rounded-full border flex items-center justify-center ${
-                      showTraffic ? 'bg-[#5B4DF5] border-[#5B4DF5]' : 'border-gray-300'
+                      showTraffic ? 'bg-[#C62828] border-[#C62828]' : 'border-[#EADBCA]'
                     }`}
                   >
                     {showTraffic && <span className="w-1.5 h-1.5 bg-white rounded-full" />}
@@ -159,7 +159,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
             type="button"
             onClick={onToggleFullscreen}
             title={isFullscreen ? 'Thoát toàn màn hình' : 'Toàn màn hình'}
-            className="w-10 h-10 bg-white rounded-xl shadow-md border border-gray-200/80 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all active:scale-95"
+            className="w-10 h-10 bg-white rounded-xl shadow-md border border-[#EADBCA] flex items-center justify-center text-[#3B0D11] hover:text-[#C62828] hover:bg-[#F5EFE6] transition-all active:scale-95"
           >
             {isFullscreen ? (
               <Minimize2 className="w-4 h-4 stroke-[2.2]" />
@@ -174,7 +174,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
           type="button"
           onClick={onRecenter}
           title="Định vị vào Phường Đại Mỗ"
-          className="w-10 h-10 bg-white rounded-xl shadow-md border border-gray-200/80 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-all active:scale-95"
+          className="w-10 h-10 bg-white rounded-xl shadow-md border border-[#EADBCA] flex items-center justify-center text-[#3B0D11] hover:text-[#C62828] hover:bg-[#F5EFE6] transition-all active:scale-95"
         >
           <Crosshair className="w-4 h-4 stroke-[2.2]" />
         </button>
@@ -182,7 +182,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
         {/* Google Pegman (Street View figure) */}
         <div
           title="Chế độ xem phố (Street View)"
-          className="w-10 h-10 bg-white rounded-xl shadow-md border border-gray-200/80 flex items-center justify-center cursor-grab hover:bg-gray-50 transition-all active:scale-95"
+          className="w-10 h-10 bg-white rounded-xl shadow-md border border-[#EADBCA] flex items-center justify-center cursor-grab hover:bg-[#F5EFE6] transition-all active:scale-95"
         >
           {/* Authentic Google Yellow Pegman Icon */}
           <svg className="w-5 h-5 text-amber-500 fill-current" viewBox="0 0 24 24">
@@ -192,13 +192,13 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
         </div>
 
         {/* Google Maps Segmented Zoom (+ / -) Control */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200/80 flex flex-col divide-y divide-gray-100 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-md border border-[#EADBCA] flex flex-col divide-y divide-[#EADBCA]/60 overflow-hidden">
           <button
             type="button"
             onClick={onZoomIn}
             title="Phóng to"
             aria-label="Phóng to"
-            className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-colors active:scale-95"
+            className="w-10 h-9 flex items-center justify-center text-[#3B0D11] hover:text-[#C62828] hover:bg-[#F5EFE6] transition-colors active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
           </button>
@@ -207,7 +207,7 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
             onClick={onZoomOut}
             title="Thu nhỏ"
             aria-label="Thu nhỏ"
-            className="w-10 h-9 flex items-center justify-center text-gray-700 hover:text-[#5B4DF5] hover:bg-gray-50 transition-colors active:scale-95"
+            className="w-10 h-9 flex items-center justify-center text-[#3B0D11] hover:text-[#C62828] hover:bg-[#F5EFE6] transition-colors active:scale-95"
           >
             <Minus className="w-4 h-4 stroke-[2.5]" />
           </button>

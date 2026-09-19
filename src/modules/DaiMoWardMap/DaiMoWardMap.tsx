@@ -55,15 +55,15 @@ const createRelicIcon = (relic: Relic, isSelected: boolean) => {
     iconSvg = `<path d="M12 2L3 7.5v2.5h2v9h14v-9h2V7.5L12 2zm0 3.2l5 3H7l5-3zM8 12h8v5H8v-5z"/>`;
   }
 
-  const pinBg = relic.rankingBadge === 'QG' ? '#5B4DF5' : '#D97706';
+  const pinBg = relic.rankingBadge === 'QG' ? '#C62828' : '#D97706';
   const scale = isSelected ? 'scale(1.22)' : 'scale(1)';
 
   return L.divIcon({
     className: 'custom-relic-pin',
     html: `
       <div style="position: relative; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%) ${scale}; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer;">
-        <div style="background: ${isSelected ? '#111827' : 'rgba(17, 24, 39, 0.92)'}; color: white; padding: 2.5px 7px; border-radius: 8px; font-size: 10.5px; font-weight: 700; font-family: -apple-system, 'SF Pro Display', sans-serif; box-shadow: 0 3px 10px rgba(0,0,0,0.35); white-space: nowrap; border: 1.5px solid rgba(255,255,255,0.85); margin-bottom: 3px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 4.5px;">
-          <span style="background: ${pinBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 4px; border-radius: 4px;">${relic.rankingBadge}</span>
+        <div style="background: ${isSelected ? '#3B0D11' : 'rgba(59, 13, 17, 0.94)'}; color: white; padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; font-family: 'Manrope', 'Gilroy', -apple-system, sans-serif; box-shadow: 0 4px 14px rgba(59,13,17,0.35); white-space: nowrap; border: 1.5px solid #EADBCA; margin-bottom: 3px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 5px;">
+          <span style="background: ${pinBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 4.5px; border-radius: 4px;">${relic.rankingBadge}</span>
           <span>${relic.name}</span>
         </div>
         <div style="position: relative; width: 32px; height: 42px; display: flex; align-items: center; justify-content: center;">
@@ -121,32 +121,32 @@ export const DaiMoWardMap: FC = () => {
     }).addTo(map);
     baseTileLayerRef.current = baseLayer;
 
-    // Render Dai Mo Ward Boundary (Monotone Style: Purple border + soft purple tint)
+    // Render Dai Mo Ward Boundary (Imperial Heritage Style: Red border + soft gold tint)
     const geoLayer = L.geoJSON(daiMoPolygonData as unknown as GeoJSON.GeoJsonObject, {
       style: () => ({
-        color: '#5B4DF5',
+        color: '#C62828',
         weight: 3.2,
-        opacity: 1,
+        opacity: 0.95,
         dashArray: '8, 6',
-        fillColor: '#5B4DF5',
-        fillOpacity: 0.14,
+        fillColor: '#F59E0B',
+        fillOpacity: 0.12,
       }),
       onEachFeature: (feature, layer) => {
         const props = feature.properties;
         layer.bindPopup(
           `
-          <div style="font-family: 'SF Pro Display', -apple-system, sans-serif; padding: 4px 2px;">
-            <div style="font-size: 15px; font-weight: bold; color: #111827; margin-bottom: 2px;">
+          <div style="font-family: 'Manrope', 'Gilroy', -apple-system, sans-serif; padding: 4px 2px;">
+            <div style="font-size: 15px; font-weight: 800; color: #3B0D11; margin-bottom: 2px;">
               ${props.name || 'Phường Đại Mỗ'}
             </div>
-            <div style="font-size: 11.5px; color: #6b7280; margin-bottom: 6px;">
+            <div style="font-size: 12px; color: #6B4F4F; margin-bottom: 8px;">
               ${props.district || 'Quận Nam Từ Liêm'}, ${props.city || 'Hà Nội'}
             </div>
-            <div style="display: flex; gap: 8px; font-size: 11px; font-weight: 600; color: #374151;">
-              <span style="background: #f4f2ff; color: #5B4DF5; padding: 2px 6px; border-radius: 6px; border: 1px solid #e9e6ff;">
+            <div style="display: flex; gap: 8px; font-size: 11px; font-weight: 600;">
+              <span style="background: #FEF2F2; color: #C62828; padding: 3px 8px; border-radius: 9999px; border: 1px solid #FECACA;">
                 Diện tích: ~${props.area_km2 || '8.1'} km²
               </span>
-              <span style="background: #f3f4f6; color: #111827; padding: 2px 6px; border-radius: 6px;">
+              <span style="background: #F5EFE6; color: #3B0D11; padding: 3px 8px; border-radius: 9999px; border: 1px solid #EADBCA;">
                 Dân số: ${props.population ? Number(props.population).toLocaleString() : '80.462'}
               </span>
             </div>
@@ -247,34 +247,34 @@ export const DaiMoWardMap: FC = () => {
 
       marker.bindPopup(
         `
-        <div style="font-family: 'SF Pro Display', -apple-system, sans-serif; width: 200px; padding: 2px;">
+        <div style="font-family: 'Manrope', 'Gilroy', -apple-system, sans-serif; width: 210px; padding: 2px;">
           ${thumbHtml}
-          <div style="display: flex; gap: 4px; margin-bottom: 5px;">
+          <div style="display: flex; gap: 5px; margin-bottom: 6px;">
             <span style="background: ${
-              relic.rankingBadge === 'QG' ? '#5B4DF5' : '#fef3c7'
+              relic.rankingBadge === 'QG' ? '#FEF2F2' : '#FEF3C7'
             }; color: ${
-              relic.rankingBadge === 'QG' ? '#ffffff' : '#0f172a'
-            }; border: ${
-              relic.rankingBadge === 'QG' ? 'none' : '1px solid #fcd34d'
-            }; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">
+              relic.rankingBadge === 'QG' ? '#C62828' : '#B45309'
+            }; border: 1px solid ${
+              relic.rankingBadge === 'QG' ? '#FECACA' : '#FDE68A'
+            }; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 9999px;">
               ${relic.rankingBadge === 'QG' ? 'Di tích Quốc gia' : 'Di tích Thành phố'}
             </span>
-            <span style="background: #f4f4f5; color: #18181b; border: 1px solid #e4e4e7; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">
+            <span style="background: #F5EFE6; color: #3B0D11; border: 1px solid #EADBCA; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 9999px;">
               ${relic.category}
             </span>
           </div>
-          <div style="font-size: 13px; font-weight: bold; color: #111827; margin-bottom: 2px;">
+          <div style="font-size: 13.5px; font-weight: 700; color: #3B0D11; margin-bottom: 3px; line-height: 1.3;">
             ${relic.name}
           </div>
-          <div style="font-size: 10.5px; color: #6b7280; margin-bottom: 6px; line-height: 1.3;">
+          <div style="font-size: 11px; color: #6B4F4F; margin-bottom: 8px; line-height: 1.3;">
             ${relic.address}
           </div>
-          <button id="btn-relic-detail-${relic.id}" style="width: 100%; background: #5B4DF5; color: white; border: none; padding: 5px 0; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;">
+          <button id="btn-relic-detail-${relic.id}" style="width: 100%; background: #C62828; color: #ffffff; border: none; padding: 7px 0; border-radius: 8px; font-size: 11.5px; font-weight: 600; cursor: pointer; transition: background 0.15s; font-family: inherit;">
             Xem chi tiết di tích →
           </button>
         </div>
       `,
-        { maxWidth: 220, offset: [0, -25] }
+        { maxWidth: 230, offset: [0, -25] }
       );
 
       marker.on('popupopen', () => {

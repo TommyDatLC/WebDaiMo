@@ -3,39 +3,95 @@
 @tailwind utilities;
 
 :root {
-  /* Red & Gold Design System Tokens */
-  --color-ink-burgundy: #2a0a0a;
-  --color-imperial-red: #d9232e;
-  --color-royal-gold: #d97706;
-  --color-amber-gold: #f59e0b;
-  --color-warm-russet: #6b4f4f;
-  --color-silk-mist: #c9b6b6;
-  --color-alabaster: #faf7f2;
+  /* Colors */
+  --color-ink-crimson: #3B0D11;
+  --color-signal-red: #C62828;
+  --color-imperial-gold: #D97706;
+  --color-radiant-amber: #F59E0B;
+  --color-slate-ochre: #6B4F4F;
+  --color-mist-amber: #CDBBA7;
+  --color-cloud: #FAF7F2;
   --color-paper: #ffffff;
-  --color-pebble: #f5efe6;
-  --color-hairline: #eadcce;
-  --color-carbon: #140707;
-  --color-radiant-vermilion: #ff4d4d;
-  --color-sunlit-gold: #fbbf24;
-  --color-burnished-ochre: #9a3412;
+  --color-pebble: #F5EFE6;
+  --color-hairline: #EADBCA;
+  --color-carbon: #0a0a0a;
+  --color-deep-bronze: #854D0E;
 
-  --shadow-warm-sm: rgba(107, 79, 79, 0.04) 0px 4px 5px 0px, rgba(107, 79, 79, 0.03) 0px 4px 10px 0px, rgba(107, 79, 79, 0.05) 0px 10px 20px 0px;
-  --shadow-warm-product: rgba(107, 79, 79, 0.05) 0px 4px 5px 0px, rgba(107, 79, 79, 0.04) 0px 8px 15px 0px, rgba(107, 79, 79, 0.09) 0px 30px 50px 0px;
-  --shadow-warm-btn: rgba(217, 35, 46, 0.25) 0px 8px 20px 0px;
+  /* Typography */
+  --font-gilroy: 'Manrope', 'Gilroy', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography Scale */
+  --text-caption: 12px;
+  --leading-caption: 1.5;
+  --text-body-sm: 14px;
+  --leading-body-sm: 1.4;
+  --text-body: 16px;
+  --leading-body: 1;
+  --text-button: 18px;
+  --leading-button: 1.6;
+  --text-body-lg: 20px;
+  --leading-body-lg: 1.4;
+  --text-subheading: 28px;
+  --leading-subheading: 1.4;
+  --text-heading-sm: 38px;
+  --leading-heading-sm: 1.21;
+  --text-heading: 50px;
+  --leading-heading: 1.2;
+  --text-heading-lg: 68px;
+  --leading-heading-lg: 1.2;
+  --text-display: 80px;
+  --leading-display: 1.2;
+
+  /* Spacing */
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-72: 72px;
+  --spacing-96: 96px;
+
+  /* Border Radius */
+  --radius-cards: 24px;
+  --radius-productcards: 16px;
+  --radius-buttons: 8px;
+  --radius-inputs: 8px;
+  --radius-badges: 9999px;
+
+  /* Shadows */
+  --shadow-sm: rgba(107, 79, 79, 0.04) 0px 4px 5px 0px, rgba(107, 79, 79, 0.03) 0px 4px 10px 0px, rgba(107, 79, 79, 0.05) 0px 10px 20px 0px;
+  --shadow-sm-2: rgba(107, 79, 79, 0.04) 0px 4px 5px 0px, rgba(107, 79, 79, 0.03) 0px 8px 15px 0px, rgba(107, 79, 79, 0.08) 0px 30px 50px 0px;
+  --shadow-sm-3: rgba(107, 79, 79, 0.04) 0px 4px 5px 0px, rgba(107, 79, 79, 0.03) 0px 8px 15px 0px, rgba(107, 79, 79, 0.06) 0px 15px 30px 0px;
+
+  /* Surfaces */
+  --surface-canvas: #FAF7F2;
+  --surface-card: #ffffff;
+  --surface-input-fill: #F5EFE6;
+  --surface-dark-surface: #3B0D11;
+  --surface-accent-surface: #C62828;
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
 
   body {
-    background-color: var(--color-alabaster);
-    color: var(--color-ink-burgundy);
-    font-family: 'SF Pro Display', 'SF Pro Text', 'SF Pro', -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Manrope', 'Gilroy', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.015em;
+    background-color: var(--color-cloud);
+    color: var(--color-ink-crimson);
   }
 }
 
@@ -44,16 +100,16 @@
   width: 100% !important;
   height: 100% !important;
   font-family: inherit;
-  background-color: #f3f4f6;
+  background-color: #FAF7F2;
 }
 
-/* Monotone black, white, and purple map aesthetic */
+/* Warm architectural map aesthetic */
 .monotone-map .leaflet-tile-pane {
-  filter: grayscale(100%) contrast(106%) brightness(99%);
+  filter: grayscale(88%) sepia(8%) contrast(105%) brightness(101%);
 }
 
 .monotone-map .leaflet-tile {
-  filter: grayscale(100%) contrast(106%) brightness(99%);
+  filter: grayscale(88%) sepia(8%) contrast(105%) brightness(101%);
 }
 
 /* Custom scrollbar for horizontal lists */
@@ -67,7 +123,7 @@
 
 /* Range slider thumb styling - 125% scale on hover and snappy dragging */
 input[type='range'] {
-  accent-color: #5B4DF5;
+  accent-color: #C62828;
 }
 
 input[type='range']::-webkit-slider-thumb {
