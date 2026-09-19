@@ -42,38 +42,41 @@ const TRAFFIC_TILE_URL = 'https://mt{s}.google.com/vt/lyrs=h,traffic&x={x}&y={y}
 const createRelicIcon = (relic: Relic, isSelected: boolean) => {
   let iconSvg = '';
   if (relic.type === 'chua') {
-    iconSvg = `<path d="M12 2c-.6 1.8-2 3.6-3.8 4.6C6.4 7.6 4.6 7.6 3 7c.6 1.6.6 3.4 1.6 5.2 1 1.8 2.8 3.2 4.6 3.8.8.3 1.8.4 2.8.4s2-.1 2.8-.4c1.8-.6 3.6-2 4.6-3.8 1-1.8 1-3.6 1.6-5.2-1.6.6-3.4.6-5.2-.4C14 5.6 12.6 3.8 12 2z" fill="#ffffff"/>`;
+    // Chùa: Traditional Pagoda / Temple with multi-tier roof
+    iconSvg = `<path d="M12 2L4 7v2h16V7l-8-5zm0 2.5l5 3.1H7l5-3.1zM5 11v8h3v-8H5zm5 0v8h4v-8h-4zm6 0v8h3v-8h-3zM3 20h18v2H3v-2z"/>`;
   } else if (relic.type === 'dinh') {
-    iconSvg = `<path d="M2 10L12 3l10 7v2H2v-2zm2 4h16v7H4v-7zm3 2v3h3v-3H7zm7 0v3h3v-3h-3z" fill="#ffffff"/>`;
+    // Đình: Traditional Vietnamese Communal House with curved roof eaves (mái đình cong)
+    iconSvg = `<path d="M12 3c-3 3-6.5 4.2-10 4.5V10c2.5 0 6-.6 8.5-2v9H6v3h12v-3h-4.5V8c2.5 1.4 6 2 8.5 2V7.5c-3.5-.3-7-1.5-10-4.5z"/>`;
   } else if (relic.type === 'den') {
-    iconSvg = `<path d="M12 2l3 5h5l-4 4 2 6-6-3-6 3 2-6-4-4h5l3-5z" fill="#ffffff"/>`;
+    // Đền: Historic sacred shrine sanctuary
+    iconSvg = `<path d="M2 4h20v2.5H2V4zm2 4.5h16V11H4V8.5zm2 4.5h12v7H6V13zm2.5 2v3h7v-3h-7zM4 21h16v1.5H4V21z"/>`;
   } else {
-    iconSvg = `<path d="M4 10l8-6 8 6v10H4V10zm8-2l-5 4v6h10v-6l-5-4z" fill="#ffffff"/>`;
+    // Miếu: Small shrine / Altar pavilion
+    iconSvg = `<path d="M12 2L3 7.5v2.5h2v9h14v-9h2V7.5L12 2zm0 3.2l5 3H7l5-3zM8 12h8v5H8v-5z"/>`;
   }
 
   const pinBg = relic.rankingBadge === 'QG' ? '#5B4DF5' : '#D97706';
-  const badgeBg = relic.rankingBadge === 'QG' ? '#4338CA' : '#B45309';
   const scale = isSelected ? 'scale(1.22)' : 'scale(1)';
-  const ringStyle = isSelected
-    ? 'border: 2.5px solid white; box-shadow: 0 0 0 5px rgba(91,77,245,0.45);'
-    : 'border: 1.5px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.35);';
 
   return L.divIcon({
     className: 'custom-relic-pin',
     html: `
       <div style="position: relative; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%) ${scale}; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer;">
-        <div style="background: ${isSelected ? '#111827' : 'rgba(17, 24, 39, 0.92)'}; color: white; padding: 2px 7px; border-radius: 8px; font-size: 10.5px; font-weight: 700; font-family: -apple-system, 'SF Pro Display', sans-serif; box-shadow: 0 3px 10px rgba(0,0,0,0.3); white-space: nowrap; border: 1px solid rgba(255,255,255,0.7); margin-bottom: 2px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 4px;">
-          <span style="background: ${badgeBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 3.5px; border-radius: 4px;">${relic.rankingBadge}</span>
+        <div style="background: ${isSelected ? '#111827' : 'rgba(17, 24, 39, 0.92)'}; color: white; padding: 2.5px 7px; border-radius: 8px; font-size: 10.5px; font-weight: 700; font-family: -apple-system, 'SF Pro Display', sans-serif; box-shadow: 0 3px 10px rgba(0,0,0,0.35); white-space: nowrap; border: 1.5px solid rgba(255,255,255,0.85); margin-bottom: 3px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 4.5px;">
+          <span style="background: ${pinBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 4px; border-radius: 4px;">${relic.rankingBadge}</span>
           <span>${relic.name}</span>
         </div>
-        <div style="position: relative; width: 30px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
-          <svg width="30" height="38" viewBox="0 0 24 32" fill="none" style="${ringStyle} border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: ${pinBg};">
+        <div style="position: relative; width: 32px; height: 42px; display: flex; align-items: center; justify-content: center;">
+          <svg width="32" height="42" viewBox="0 0 32 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35)); overflow: visible;">
+            ${isSelected ? `<circle cx="16" cy="14.5" r="17.5" stroke="${pinBg}" stroke-width="3" fill="none" opacity="0.5" stroke-dasharray="4, 3"/>` : ''}
+            <path d="M16 1C8.544 1 2.5 7.044 2.5 14.5c0 10.2 13.5 25.5 13.5 25.5s13.5-15.3 13.5-25.5C29.5 7.044 23.456 1 16 1z" fill="${pinBg}" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="16" cy="14.5" r="8.5" fill="#ffffff"/>
+            <g transform="translate(9, 7.5)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="${pinBg}">
+                ${iconSvg}
+              </svg>
+            </g>
           </svg>
-          <div style="position: absolute; top: 3px; left: 7px; width: 16px; height: 16px; display: flex; items-center; justify-content: center;">
-            <svg width="15" height="15" viewBox="0 0 24 24">
-              ${iconSvg}
-            </svg>
-          </div>
         </div>
       </div>
     `,

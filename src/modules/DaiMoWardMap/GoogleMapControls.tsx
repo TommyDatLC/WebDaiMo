@@ -1,5 +1,5 @@
 import { useState, type FC } from 'react';
-import { Layers, Plus, Minus, Crosshair, TrafficCone, Maximize2, Minimize2 } from 'lucide-react';
+import { Layers, Plus, Minus, Crosshair, TrafficCone, Maximize2, Minimize2, Map, Satellite, Mountain } from 'lucide-react';
 import { MapType } from './types';
 
 interface GoogleMapControlsProps {
@@ -81,7 +81,9 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                       : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-gray-200 mb-1 flex items-center justify-center text-xs">🗺️</div>
+                  <div className="w-8 h-8 rounded-lg bg-gray-100 mb-1 flex items-center justify-center border border-gray-200 shadow-xs">
+                    <Map className="w-4 h-4 text-slate-700" />
+                  </div>
                   <span>Mặc định</span>
                 </button>
 
@@ -97,7 +99,9 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                       : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-emerald-900 text-white mb-1 flex items-center justify-center text-xs">🛰️</div>
+                  <div className="w-8 h-8 rounded-lg bg-slate-900 text-white mb-1 flex items-center justify-center border border-slate-800 shadow-xs">
+                    <Satellite className="w-4 h-4 text-indigo-300" />
+                  </div>
                   <span>Vệ tinh</span>
                 </button>
 
@@ -113,7 +117,9 @@ export const GoogleMapControls: FC<GoogleMapControlsProps> = ({
                       : 'hover:bg-gray-50 text-gray-700'
                   }`}
                 >
-                  <div className="w-8 h-8 rounded-lg bg-amber-100 mb-1 flex items-center justify-center text-xs">⛰️</div>
+                  <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-800 mb-1 flex items-center justify-center border border-amber-200 shadow-xs">
+                    <Mountain className="w-4 h-4 text-amber-700" />
+                  </div>
                   <span>Địa hình</span>
                 </button>
               </div>
