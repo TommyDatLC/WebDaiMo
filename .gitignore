@@ -23,3 +23,10 @@ dist-ssr
 *.sln
 *.sw?
 tsconfig.tsbuildinfo
+
+# Sensitive credentials & tokens
+github_access_token*
+*.token
+.env
+.env.*
+!.env.example
