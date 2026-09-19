@@ -2,18 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Red & Gold Design System Tokens */
+  --color-ink-burgundy: #2a0a0a;
+  --color-imperial-red: #d9232e;
+  --color-royal-gold: #d97706;
+  --color-amber-gold: #f59e0b;
+  --color-warm-russet: #6b4f4f;
+  --color-silk-mist: #c9b6b6;
+  --color-alabaster: #faf7f2;
+  --color-paper: #ffffff;
+  --color-pebble: #f5efe6;
+  --color-hairline: #eadcce;
+  --color-carbon: #140707;
+  --color-radiant-vermilion: #ff4d4d;
+  --color-sunlit-gold: #fbbf24;
+  --color-burnished-ochre: #9a3412;
+
+  --shadow-warm-sm: rgba(107, 79, 79, 0.04) 0px 4px 5px 0px, rgba(107, 79, 79, 0.03) 0px 4px 10px 0px, rgba(107, 79, 79, 0.05) 0px 10px 20px 0px;
+  --shadow-warm-product: rgba(107, 79, 79, 0.05) 0px 4px 5px 0px, rgba(107, 79, 79, 0.04) 0px 8px 15px 0px, rgba(107, 79, 79, 0.09) 0px 30px 50px 0px;
+  --shadow-warm-btn: rgba(217, 35, 46, 0.25) 0px 8px 20px 0px;
+}
+
 @layer base {
-  html,
-  body,
-  #root {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
+    background-color: var(--color-alabaster);
+    color: var(--color-ink-burgundy);
     font-family: 'SF Pro Display', 'SF Pro Text', 'SF Pro', -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
