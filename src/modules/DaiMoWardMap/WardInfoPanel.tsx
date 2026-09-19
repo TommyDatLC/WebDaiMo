@@ -1,4 +1,4 @@
-import { useState, useEffect, type FC } from 'react';
+import { useState, useEffect, useRef, type FC } from 'react';
 import {
   ChevronLeft,
   ChevronRight,
@@ -86,9 +86,88 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
   });
 
 
+  // Mobile touch gesture tracking for swipe-left to collapse
+  const touchStartX = useRef<number | null>(null);
+  const touchStartY = useRef<number | null>(null);
+  const touchCurrentX = useRef<number | null>(null);
+  const touchCurrentY = useRef<number | null>(null);
+  const touchStartTime = useRef<number>(0);
+  const isVerticalScroll = useRef<boolean>(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+    touchCurrentX.current = e.touches[0].clientX;
+    touchCurrentY.current = e.touches[0].clientY;
+    touchStartTime.current = Date.now();
+    isVerticalScroll.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    touchCurrentX.current = e.touches[0].clientX;
+    touchCurrentY.current = e.touches[0].clientY;
+
+    const diffX = Math.abs(touchCurrentX.current - touchStartX.current);
+    const diffY = Math.abs(touchCurrentY.current - touchStartY.current);
+
+    // If vertical movement dominates early on, it is a scroll gesture
+    if (diffY > 15 && diffY > diffX) {
+      isVerticalScroll.current = true;
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (
+      touchStartX.current === null ||
+      touchCurrentX.current === null ||
+      touchStartY.current === null ||
+      touchCurrentY.current === null
+    ) {
+      return;
+    }
+
+    const deltaX = touchCurrentX.current - touchStartX.current;
+    const deltaY = touchCurrentY.current - touchStartY.current;
+    const elapsed = Date.now() - touchStartTime.current;
+
+    // Check if horizontal swipe occurred without being swallowed by vertical scroll
+    if (!isVerticalScroll.current) {
+      const isFastFlick = elapsed < 350 && deltaX <= -30;
+      const isDeliberateSwipe = deltaX <= -45;
+
+      // Swipe left to collapse panel
+      if (!isCollapsed && (isFastFlick || isDeliberateSwipe) && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+        handleToggleCollapse();
+      } else if (
+        isCollapsed &&
+        (deltaX >= 35 || (elapsed < 350 && deltaX >= 25)) &&
+        Math.abs(deltaX) > Math.abs(deltaY) * 1.2
+      ) {
+        // Swipe right from handle tab to expand
+        handleToggleCollapse();
+      }
+    }
+
+    // Reset touch tracking
+    touchStartX.current = null;
+    touchStartY.current = null;
+    touchCurrentX.current = null;
+    touchCurrentY.current = null;
+    isVerticalScroll.current = false;
+  };
+
   return (
     <>
       <div
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={() => {
+          touchStartX.current = null;
+          touchStartY.current = null;
+          isVerticalScroll.current = false;
+        }}
         className={`absolute top-3 sm:top-4 left-3 sm:left-4 z-30 transition-all duration-300 ease-in-out pointer-events-auto select-none ${
           isCollapsed
             ? '-translate-x-[calc(100%+12px)] sm:-translate-x-[calc(100%+16px)]'
@@ -105,7 +184,9 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
           {selectedRelic ? (
             <div className="flex flex-col h-full overflow-hidden">
               {/* Back Bar */}
-              <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-[#EADBCA]/60 shrink-0">
+              <div className="relative flex items-center justify-between px-4 py-3 bg-white border-b border-[#EADBCA]/60 shrink-0">
+                {/* Mobile Drag / Swipe Pill Indicator */}
+                <div className="sm:hidden absolute top-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-[#EADBCA] rounded-full z-10 pointer-events-none" />
                 <button
                   type="button"
                   onClick={() => onSelectRelic(null)}
@@ -535,6 +616,9 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                   }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+                {/* Mobile Drag / Swipe Pill Indicator */}
+                <div className="sm:hidden absolute top-1.5 left-1/2 -translate-x-1/2 w-9 h-1 bg-white/40 rounded-full z-10 pointer-events-none" />
 
                 {/* Badge over photo */}
                 <div className="absolute top-3 left-3 bg-[#C62828] text-white px-2.5 py-1 rounded-full text-[10.5px] font-bold flex items-center gap-1.5 shadow-md">
