@@ -23,3 +23,24 @@ export interface Landmark {
   category: string;
   coords: [number, number]; // [lat, lon]
 }
+
+export interface Relic {
+  id: string;
+  name: string;
+  alias: string;
+  category: string;
+  type: 'chua' | 'dinh' | 'den' | 'mieu';
+  ranking: string;
+  rankingBadge: 'QG' | 'TP';
+  decision: string;
+  address: string;
+  coordinates: [number, number]; // [lat, lon]
+  worshipped: string;
+  area: string;
+  festival: string;
+  folder?: string;
+  mainDoc?: string;
+  summary: string;
+  paragraphs: string[];
+  images: string[];
+}

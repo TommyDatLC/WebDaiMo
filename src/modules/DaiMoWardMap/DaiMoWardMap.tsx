@@ -3,9 +3,12 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import daiMoPolygonData from '../../data/dai_mo_ward_polygon.json';
+import relicsData from '../../data/relics.json';
 import { WardInfoPanel } from './WardInfoPanel';
 import { GoogleMapControls } from './GoogleMapControls';
-import { MapType } from './types';
+import { MapType, Relic } from './types';
+
+const relics = relicsData as Relic[];
 
 // Fix Leaflet default marker icons for Vite bundler
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
@@ -18,19 +21,16 @@ L.Icon.Default.mergeOptions({
 // Authentic Google Maps base tile layers (No API Key required, fast CDN, zero watermarks)
 const TILE_CONFIGS: Record<MapType, { url: string; subdomains: string[]; maxZoom: number }> = {
   roadmap: {
-    // Official Google Maps Roadmap
     url: 'https://mt{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
     subdomains: ['0', '1', '2', '3'],
     maxZoom: 20,
   },
   satellite: {
-    // Official Google Maps Hybrid (Satellite Imagery + Street Labels)
     url: 'https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}',
     subdomains: ['0', '1', '2', '3'],
     maxZoom: 20,
   },
   terrain: {
-    // Official Google Maps Terrain
     url: 'https://mt{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
     subdomains: ['0', '1', '2', '3'],
     maxZoom: 20,
@@ -39,16 +39,61 @@ const TILE_CONFIGS: Record<MapType, { url: string; subdomains: string[]; maxZoom
 
 const TRAFFIC_TILE_URL = 'https://mt{s}.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}';
 
+const createRelicIcon = (relic: Relic, isSelected: boolean) => {
+  let iconSvg = '';
+  if (relic.type === 'chua') {
+    iconSvg = `<path d="M12 2c-.6 1.8-2 3.6-3.8 4.6C6.4 7.6 4.6 7.6 3 7c.6 1.6.6 3.4 1.6 5.2 1 1.8 2.8 3.2 4.6 3.8.8.3 1.8.4 2.8.4s2-.1 2.8-.4c1.8-.6 3.6-2 4.6-3.8 1-1.8 1-3.6 1.6-5.2-1.6.6-3.4.6-5.2-.4C14 5.6 12.6 3.8 12 2z" fill="#ffffff"/>`;
+  } else if (relic.type === 'dinh') {
+    iconSvg = `<path d="M2 10L12 3l10 7v2H2v-2zm2 4h16v7H4v-7zm3 2v3h3v-3H7zm7 0v3h3v-3h-3z" fill="#ffffff"/>`;
+  } else if (relic.type === 'den') {
+    iconSvg = `<path d="M12 2l3 5h5l-4 4 2 6-6-3-6 3 2-6-4-4h5l3-5z" fill="#ffffff"/>`;
+  } else {
+    iconSvg = `<path d="M4 10l8-6 8 6v10H4V10zm8-2l-5 4v6h10v-6l-5-4z" fill="#ffffff"/>`;
+  }
+
+  const pinBg = relic.rankingBadge === 'QG' ? '#5B4DF5' : '#D97706';
+  const badgeBg = relic.rankingBadge === 'QG' ? '#4338CA' : '#B45309';
+  const scale = isSelected ? 'scale(1.22)' : 'scale(1)';
+  const ringStyle = isSelected
+    ? 'border: 2.5px solid white; box-shadow: 0 0 0 5px rgba(91,77,245,0.45);'
+    : 'border: 1.5px solid white; box-shadow: 0 3px 8px rgba(0,0,0,0.35);';
+
+  return L.divIcon({
+    className: 'custom-relic-pin',
+    html: `
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%) ${scale}; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer;">
+        <div style="background: ${isSelected ? '#111827' : 'rgba(17, 24, 39, 0.92)'}; color: white; padding: 2px 7px; border-radius: 8px; font-size: 10.5px; font-weight: 700; font-family: -apple-system, 'SF Pro Display', sans-serif; box-shadow: 0 3px 10px rgba(0,0,0,0.3); white-space: nowrap; border: 1px solid rgba(255,255,255,0.7); margin-bottom: 2px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 4px;">
+          <span style="background: ${badgeBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 3.5px; border-radius: 4px;">${relic.rankingBadge}</span>
+          <span>${relic.name}</span>
+        </div>
+        <div style="position: relative; width: 30px; height: 38px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+          <svg width="30" height="38" viewBox="0 0 24 32" fill="none" style="${ringStyle} border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: ${pinBg};">
+          </svg>
+          <div style="position: absolute; top: 3px; left: 7px; width: 16px; height: 16px; display: flex; items-center; justify-content: center;">
+            <svg width="15" height="15" viewBox="0 0 24 24">
+              ${iconSvg}
+            </svg>
+          </div>
+        </div>
+      </div>
+    `,
+    iconSize: [0, 0],
+  });
+};
+
 export const DaiMoWardMap: FC = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const baseTileLayerRef = useRef<L.TileLayer | null>(null);
   const trafficLayerRef = useRef<L.TileLayer | null>(null);
   const geojsonLayerRef = useRef<L.GeoJSON | null>(null);
+  const relicsLayerRef = useRef<L.LayerGroup | null>(null);
+  const relicMarkersMapRef = useRef<Map<string, L.Marker>>(new Map());
 
   const [mapType, setMapType] = useState<MapType>('roadmap');
   const [showTraffic, setShowTraffic] = useState<boolean>(false);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [selectedRelicId, setSelectedRelicId] = useState<string | null>(null);
 
   const centerCoords: [number, number] = [20.993, 105.772];
 
@@ -76,16 +121,17 @@ export const DaiMoWardMap: FC = () => {
     // Render Dai Mo Ward Boundary (Monotone Style: Purple border + soft purple tint)
     const geoLayer = L.geoJSON(daiMoPolygonData as unknown as GeoJSON.GeoJsonObject, {
       style: () => ({
-        color: '#5B4DF5', // Signature Purple
+        color: '#5B4DF5',
         weight: 3.2,
         opacity: 1,
-        dashArray: '8, 6', // Monotone dashed boundary
+        dashArray: '8, 6',
         fillColor: '#5B4DF5',
-        fillOpacity: 0.16, // Soft purple wash
+        fillOpacity: 0.14,
       }),
       onEachFeature: (feature, layer) => {
         const props = feature.properties;
-        layer.bindPopup(`
+        layer.bindPopup(
+          `
           <div style="font-family: 'SF Pro Display', -apple-system, sans-serif; padding: 4px 2px;">
             <div style="font-size: 15px; font-weight: bold; color: #111827; margin-bottom: 2px;">
               ${props.name || 'Phường Đại Mỗ'}
@@ -102,18 +148,23 @@ export const DaiMoWardMap: FC = () => {
               </span>
             </div>
           </div>
-        `, { maxWidth: 280 });
+        `,
+          { maxWidth: 280 }
+        );
 
         layer.on({
           mouseover: (e) => {
             const l = e.target;
             l.setStyle({
               weight: 4.5,
-              fillOpacity: 0.3,
+              fillOpacity: 0.25,
             });
           },
           mouseout: (e) => {
             geoLayer.resetStyle(e.target);
+          },
+          click: () => {
+            setSelectedRelicId(null);
           },
         });
       },
@@ -121,30 +172,14 @@ export const DaiMoWardMap: FC = () => {
 
     geojsonLayerRef.current = geoLayer;
 
-    // Add Center Marker (Signature Purple Pin & Label)
-    const customPin = L.divIcon({
-      className: 'custom-purple-pin',
-      html: `
-        <div style="position: relative; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%);">
-          <div style="background: #5B4DF5; color: white; padding: 4px 10px; border-radius: 10px; font-size: 11.5px; font-weight: 800; font-family: -apple-system, 'SF Pro Display', sans-serif; box-shadow: 0 4px 14px rgba(91,77,245,0.45); white-space: nowrap; border: 1.5px solid white; margin-bottom: 3px; letter-spacing: -0.01em;">
-            Phường Đại Mỗ
-          </div>
-          <svg width="28" height="36" viewBox="0 0 24 32" fill="none" style="filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 9 12 20 12 20s12-11 12-20c0-6.63-5.37-12-12-12z" fill="#5B4DF5"/>
-            <circle cx="12" cy="12" r="5" fill="#ffffff"/>
-            <circle cx="12" cy="12" r="2.5" fill="#5B4DF5"/>
-          </svg>
-        </div>
-      `,
-      iconSize: [0, 0],
-    });
-
-    L.marker(centerCoords, { icon: customPin }).addTo(map);
+    // Relics Layer Group
+    const relicsGroup = L.layerGroup().addTo(map);
+    relicsLayerRef.current = relicsGroup;
 
     // Fit map smoothly to Dai Mo Ward bounds
     map.fitBounds(geoLayer.getBounds(), { padding: [60, 60] });
 
-    // Ensure map takes 100% of the document height immediately & on container resize
+    // Handle container resizing
     const invalidate = () => {
       if (mapInstanceRef.current) {
         mapInstanceRef.current.invalidateSize();
@@ -177,6 +212,78 @@ export const DaiMoWardMap: FC = () => {
       mapInstanceRef.current = null;
     };
   }, []);
+
+  // Update Relic Markers whenever selectedRelicId or map initializes
+  useEffect(() => {
+    if (!mapInstanceRef.current || !relicsLayerRef.current) return;
+    const map = mapInstanceRef.current;
+    const group = relicsLayerRef.current;
+
+    group.clearLayers();
+    relicMarkersMapRef.current.clear();
+
+    relics.forEach((relic) => {
+      const isSelected = relic.id === selectedRelicId;
+      const icon = createRelicIcon(relic, isSelected);
+
+      const marker = L.marker(relic.coordinates, {
+        icon,
+        zIndexOffset: isSelected ? 1000 : 10,
+      });
+
+      marker.on('click', () => {
+        setSelectedRelicId(relic.id);
+        map.flyTo(relic.coordinates, 16, { duration: 1.0 });
+      });
+
+      // Quick popup preview
+      const thumbHtml =
+        relic.images && relic.images.length > 0
+          ? `<img src="${relic.images[0]}" style="width: 100%; height: 90px; object-fit: cover; border-radius: 8px; margin-bottom: 6px;" />`
+          : '';
+
+      marker.bindPopup(
+        `
+        <div style="font-family: 'SF Pro Display', -apple-system, sans-serif; width: 200px; padding: 2px;">
+          ${thumbHtml}
+          <div style="display: flex; gap: 4px; margin-bottom: 4px;">
+            <span style="background: ${
+              relic.rankingBadge === 'QG' ? '#5B4DF5' : '#D97706'
+            }; color: white; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px;">
+              ${relic.rankingBadge === 'QG' ? 'Di tích QG' : 'Cấp TP'}
+            </span>
+            <span style="background: #f3f4f6; color: #374151; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 4px;">
+              ${relic.category}
+            </span>
+          </div>
+          <div style="font-size: 13px; font-weight: bold; color: #111827; margin-bottom: 2px;">
+            ${relic.name}
+          </div>
+          <div style="font-size: 10.5px; color: #6b7280; margin-bottom: 6px; line-height: 1.3;">
+            ${relic.address}
+          </div>
+          <button id="btn-relic-detail-${relic.id}" style="width: 100%; background: #5B4DF5; color: white; border: none; padding: 5px 0; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;">
+            Xem chi tiết di tích →
+          </button>
+        </div>
+      `,
+        { maxWidth: 220, offset: [0, -25] }
+      );
+
+      marker.on('popupopen', () => {
+        const btn = document.getElementById(`btn-relic-detail-${relic.id}`);
+        if (btn) {
+          btn.onclick = () => {
+            setSelectedRelicId(relic.id);
+            marker.closePopup();
+          };
+        }
+      });
+
+      marker.addTo(group);
+      relicMarkersMapRef.current.set(relic.id, marker);
+    });
+  }, [selectedRelicId]);
 
   // Handle Map Type Change
   useEffect(() => {
@@ -219,6 +326,7 @@ export const DaiMoWardMap: FC = () => {
   };
 
   const handleRecenter = () => {
+    setSelectedRelicId(null);
     if (geojsonLayerRef.current && mapInstanceRef.current) {
       mapInstanceRef.current.fitBounds(geojsonLayerRef.current.getBounds(), {
         padding: [60, 60],
@@ -227,6 +335,16 @@ export const DaiMoWardMap: FC = () => {
       });
     } else {
       mapInstanceRef.current?.setView(centerCoords, 14, { animate: true });
+    }
+  };
+
+  const handleFlyToRelic = (relic: Relic) => {
+    setSelectedRelicId(relic.id);
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.flyTo(relic.coordinates, 16, {
+        duration: 1.0,
+        easeLinearity: 0.25,
+      });
     }
   };
 
@@ -241,18 +359,26 @@ export const DaiMoWardMap: FC = () => {
   };
 
   return (
-    <div className={`relative w-full h-full overflow-hidden bg-[#f3f4f6] font-sans ${mapType !== 'satellite' ? 'monotone-map' : ''}`}>
+    <div
+      className={`relative w-full h-full overflow-hidden bg-[#f3f4f6] font-sans ${
+        mapType !== 'satellite' ? 'monotone-map' : ''
+      }`}
+    >
       {/* Monotone Leaflet Map Canvas (Black & White with Purple Accents) */}
       <div ref={mapContainerRef} className="absolute inset-0 w-full h-full z-10" />
 
-      {/* Place Details Drawer for Dai Mo Ward (Positioned top-left without search bar) */}
+      {/* Place Details Drawer for Dai Mo Ward & Relics */}
       <WardInfoPanel
+        relics={relics}
+        selectedRelicId={selectedRelicId}
+        onSelectRelic={setSelectedRelicId}
+        onFlyToRelic={handleFlyToRelic}
         onDirectionsClick={handleRecenter}
-        onSaveClick={() => alert('Đã lưu Phường Đại Mỗ vào danh sách yêu thích')}
+        onSaveClick={() => alert('Đã lưu thông tin di tích vào danh sách yêu thích')}
         onShareClick={() => {
           if (navigator.share) {
             navigator.share({
-              title: 'Ranh giới Phường Đại Mỗ, Nam Từ Liêm, Hà Nội',
+              title: 'Sổ tay Di tích Phường Đại Mỗ',
               url: window.location.href,
             });
           } else {
