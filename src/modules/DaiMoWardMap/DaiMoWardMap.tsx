@@ -250,11 +250,7 @@ export const DaiMoWardMap: FC = () => {
 
       marker.on('click', () => {
         setSelectedRelicId(relic.id);
-        if (window.innerWidth < 640) {
-          setIsPanelCollapsed(true);
-        } else {
-          setIsPanelCollapsed(false);
-        }
+        setIsPanelCollapsed(true);
         map.flyTo(relic.coordinates, 16, { duration: 1.0 });
       });
 
@@ -367,11 +363,7 @@ export const DaiMoWardMap: FC = () => {
 
   const handleFlyToRelic = (relic: Relic) => {
     setSelectedRelicId(relic.id);
-    if (window.innerWidth < 640) {
-      setIsPanelCollapsed(true);
-    } else {
-      setIsPanelCollapsed(false);
-    }
+    setIsPanelCollapsed(true);
     if (mapInstanceRef.current) {
       mapInstanceRef.current.flyTo(relic.coordinates, 16, {
         duration: 1.0,
@@ -410,11 +402,7 @@ export const DaiMoWardMap: FC = () => {
         onSelectRelic={(id) => {
           setSelectedRelicId(id);
           if (id) {
-            if (window.innerWidth < 640) {
-              setIsPanelCollapsed(true);
-            } else {
-              setIsPanelCollapsed(false);
-            }
+            setIsPanelCollapsed(true);
           }
         }}
         onFlyToRelic={handleFlyToRelic}

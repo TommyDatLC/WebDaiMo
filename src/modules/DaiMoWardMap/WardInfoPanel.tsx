@@ -59,10 +59,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
   useEffect(() => {
     setCurrentPhotoIndex(0);
     setActiveRelicTab('overview');
-    if (selectedRelic && isCollapsed && window.innerWidth >= 640) {
-      handleToggleCollapse();
-    }
-  }, [selectedRelicId, selectedRelic]);
+  }, [selectedRelicId]);
 
   // Filter relics for directory
   const filteredRelics = relics.filter((r) => {
@@ -385,7 +382,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                       type="button"
                       onClick={() => {
                         onFlyToRelic(selectedRelic);
-                        if (window.innerWidth < 640 && !isCollapsed) {
+                        if (!isCollapsed) {
                           handleToggleCollapse();
                         }
                       }}
@@ -788,7 +785,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                             onClick={() => {
                               onSelectRelic(r.id);
                               onFlyToRelic(r);
-                              if (window.innerWidth < 640 && !isCollapsed) {
+                              if (!isCollapsed) {
                                 handleToggleCollapse();
                               }
                             }}
