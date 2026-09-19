@@ -99,7 +99,7 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
                   className="flex items-center gap-1.5 text-xs font-bold text-[#C62828] hover:text-[#991B1B] transition-colors active:scale-95"
                 >
                   <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
-                  <span>Sổ tay di tích Đại Mỗ</span>
+                  <span className="font-title font-bold text-sm tracking-wide">Sổ tay di tích Đại Mỗ</span>
                 </button>
                 <div className="flex items-center gap-2">
                   <span className="text-[11px] font-semibold text-[#6B4F4F] bg-[#F5EFE6] border border-[#EADBCA] px-2 py-0.5 rounded-full">
@@ -211,11 +211,11 @@ export const WardInfoPanel: FC<WardInfoPanelProps> = ({
 
                   {/* Title banner */}
                   <div className="absolute bottom-2.5 left-4 right-4 text-white">
-                    <h2 className="text-xl font-extrabold tracking-tight leading-tight drop-shadow-sm">
+                    <h2 className="text-2xl font-bold tracking-tight leading-tight drop-shadow-sm font-title">
                       {selectedRelic.name}
                     </h2>
                     {selectedRelic.alias && selectedRelic.alias !== selectedRelic.name && (
-                      <p className="text-xs text-red-100/90 font-medium italic mt-0.5 truncate">
+                      <p className="text-xs text-red-100/90 font-medium italic mt-0.5 truncate font-title tracking-wide">
                         {selectedRelic.alias}
                       </p>
                     )}
@@ -410,7 +410,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                             return (
                               <h3
                                 key={idx}
-                                className="font-extrabold text-sm text-[#C62828] pt-3 pb-1 border-b border-[#EADBCA]/60 flex items-center gap-1.5"
+                                className="font-title font-bold text-sm text-[#C62828] pt-3 pb-1 border-b border-[#EADBCA]/60 flex items-center gap-1.5 tracking-wide"
                               >
                                 <span className="w-2 h-2 rounded-full bg-[#C62828]" />
                                 <span>{para}</span>
@@ -419,7 +419,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                           }
                           if (isSubHeading) {
                             return (
-                              <h4 key={idx} className="font-bold text-[#3B0D11] pt-1">
+                              <h4 key={idx} className="font-title font-bold text-sm text-[#3B0D11] pt-1 tracking-wide">
                                 {para}
                               </h4>
                             );
@@ -437,7 +437,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                   {activeRelicTab === 'architecture' && (
                     <div className="space-y-3 leading-relaxed text-[#3B0D11]">
                       <div className="p-3 bg-[#F5EFE6]/70 rounded-2xl border border-[#EADBCA]">
-                        <h4 className="font-bold text-[#3B0D11] mb-1 flex items-center gap-1.5">
+                        <h4 className="font-title font-bold text-sm text-[#3B0D11] mb-1 flex items-center gap-1.5 tracking-wide">
                           <Building2 className="w-3.5 h-3.5 text-[#C62828]" />
                           <span>Đặc trưng kiến trúc di tích</span>
                         </h4>
@@ -522,7 +522,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                 </div>
 
                 <div className="absolute bottom-2.5 left-4 right-4 text-white">
-                  <h2 className="text-xl font-extrabold tracking-tight">Phường Đại Mỗ</h2>
+                  <h2 className="text-2xl font-bold tracking-tight font-title">Phường Đại Mỗ</h2>
                   <p className="text-xs text-red-100/90 font-medium">
                     Quận Nam Từ Liêm, Thành phố Hà Nội
                   </p>
@@ -580,7 +580,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                     {/* Header summary banner */}
                     <div className="p-3 bg-red-50/80 rounded-2xl border border-red-200/80 flex items-center justify-between">
                       <div>
-                        <p className="font-extrabold text-[#C62828] text-xs">
+                        <p className="font-title font-bold text-[#C62828] text-sm tracking-wide">
                           10 Di tích Lịch sử – Văn hóa
                         </p>
                         <p className="text-[11px] text-[#6B4F4F] mt-0.5">
@@ -691,7 +691,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                                 </span>
                               </div>
 
-                              <h4 className="font-bold text-[#3B0D11] group-hover:text-[#C62828] transition-colors truncate">
+                              <h4 className="font-title font-bold text-[14.5px] text-[#3B0D11] group-hover:text-[#C62828] transition-colors truncate tracking-tight">
                                 {r.name}
                               </h4>
                               <p className="text-[10.5px] text-[#6B4F4F] truncate mt-0.5">
@@ -739,7 +739,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                       <div className="flex items-start gap-3">
                         <MapPin className="w-4 h-4 text-[#C62828] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-bold text-[#3B0D11]">Vị trí hành chính</p>
+                          <p className="font-title font-bold text-sm text-[#3B0D11]">Vị trí hành chính</p>
                           <p className="text-[#6B4F4F] mt-0.5">
                             Phường Đại Mỗ, Quận Nam Từ Liêm, Thành phố Hà Nội, Việt Nam
                           </p>
@@ -749,7 +749,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                       <div className="flex items-start gap-3">
                         <Compass className="w-4 h-4 text-[#6B4F4F] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-bold text-[#3B0D11]">Tọa độ trung tâm</p>
+                          <p className="font-title font-bold text-sm text-[#3B0D11]">Tọa độ trung tâm</p>
                           <p className="text-[#6B4F4F] mt-0.5 font-mono">
                             20.9930° N, 105.7720° E
                           </p>
@@ -759,7 +759,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                       <div className="flex items-start gap-3">
                         <CheckCircle2 className="w-4 h-4 text-[#C62828] shrink-0 mt-0.5" />
                         <div>
-                          <p className="font-bold text-[#3B0D11]">Mã bưu chính & Hành chính</p>
+                          <p className="font-title font-bold text-sm text-[#3B0D11]">Mã bưu chính & Hành chính</p>
                           <p className="text-[#6B4F4F] mt-0.5">
                             Mã hành chính: <strong>00637</strong> • Mã bưu chính: <strong>12010</strong>
                           </p>
@@ -784,7 +784,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                     </div>
 
                     <div className="space-y-2.5">
-                      <h4 className="font-bold text-[#3B0D11]">Tiếp giáp địa lý:</h4>
+                      <h4 className="font-title font-bold text-sm text-[#3B0D11] tracking-wide">Tiếp giáp địa lý:</h4>
                       <ul className="space-y-1.5 text-[#6B4F4F] pl-1">
                         <li className="flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#C62828]" />
@@ -806,7 +806,7 @@ Tọa độ: ${selectedRelic.coordinates[0]}, ${selectedRelic.coordinates[1]}`
                     </div>
 
                     <div className="space-y-2 pt-1 border-t border-[#EADBCA]/60">
-                      <h4 className="font-bold text-[#3B0D11]">Trục giao thông chính:</h4>
+                      <h4 className="font-title font-bold text-sm text-[#3B0D11] tracking-wide">Trục giao thông chính:</h4>
                       <p className="text-[#6B4F4F] leading-relaxed">
                         Đường Tố Hữu (Lê Văn Lương kéo dài), Đường 70, Phố Sa Đôi, Phố Quang Tiến, Cầu Đôi Đại Mỗ, Sông Nhuệ chảy qua địa bàn.
                       </p>

@@ -62,8 +62,8 @@ const createRelicIcon = (relic: Relic, isSelected: boolean) => {
     className: 'custom-relic-pin',
     html: `
       <div style="position: relative; display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%) ${scale}; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer;">
-        <div style="background: ${isSelected ? '#3B0D11' : 'rgba(59, 13, 17, 0.94)'}; color: white; padding: 3px 8px; border-radius: 8px; font-size: 11px; font-weight: 700; font-family: 'Gilroy', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; box-shadow: 0 4px 14px rgba(59,13,17,0.35); white-space: nowrap; border: 1.5px solid #EADBCA; margin-bottom: 3px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 5px;">
-          <span style="background: ${pinBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 4.5px; border-radius: 4px;">${relic.rankingBadge}</span>
+        <div style="background: ${isSelected ? '#3B0D11' : 'rgba(59, 13, 17, 0.94)'}; color: white; padding: 3px 8px; border-radius: 8px; font-size: 11.5px; font-weight: 700; font-family: 'Playfair Display', 'Philosopher', 'Cormorant Garamond', Georgia, serif; box-shadow: 0 4px 14px rgba(59,13,17,0.35); white-space: nowrap; border: 1.5px solid #EADBCA; margin-bottom: 3px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 5px;">
+          <span style="background: ${pinBg}; color: white; font-size: 8.5px; font-weight: 800; padding: 1px 4.5px; border-radius: 4px; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;">${relic.rankingBadge}</span>
           <span>${relic.name}</span>
         </div>
         <div style="position: relative; width: 32px; height: 42px; display: flex; align-items: center; justify-content: center;">
