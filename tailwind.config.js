@@ -33,9 +33,19 @@ export default {
       },
       fontFamily: {
         sans: [
-          'Manrope',
           'Gilroy',
+          'Gilroy-Regular',
+          'Manrope',
           'Inter',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Segoe UI"',
+          'Roboto',
+          'sans-serif',
+        ],
+        gilroy: [
+          'Gilroy',
+          'Gilroy-Regular',
           '-apple-system',
           'BlinkMacSystemFont',
           '"Segoe UI"',
